@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bimbel Brawijaya — Platform K3 Terintegrasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0d1117;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93, 44, 50, 0.3), transparent),
+                        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.2), transparent);
+        }
+        
+        .glass-nav {
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 50%, #c0c0c0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #5D2C32 0%, #4A1B1F 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(93, 44, 50, 0.3);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(93, 44, 50, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .feature-card {
+            background: rgba(22, 27, 34, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(22, 27, 34, 0.8);
+            border-color: rgba(197, 154, 46, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .glow {
+            box-shadow: 0 0 60px rgba(197, 154, 46, 0.2);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .stat-badge {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .code-block {
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background: #161b22;
+                padding: 2rem;
+                transition: right 0.3s ease;
+                z-index: 100;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .mobile-menu.active {
+                right: 0;
+            }
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 99;
+            }
+            .mobile-overlay.active {
+                display: block;
+            }
+        }
+        
+        /* Light Mode */
+        body.light-mode {
+            background: #f6f8fa;
+            color: #24292f;
+        }
+        body.light-mode .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .hero-bg {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93, 44, 50, 0.1), transparent),
+                        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.05), transparent);
+        }
+        body.light-mode .gradient-text {
+            background: linear-gradient(135deg, #24292f 0%, #57606a 50%, #6e7781 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.light-mode .feature-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode .feature-card:hover {
+            background: #f6f8fa;
+        }
+        body.light-mode .code-block {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode h1, body.light-mode h2, body.light-mode h3, 
+        body.light-mode h4, body.light-mode .text-white {
+            color: #24292f !important;
+        }
+        body.light-mode .text-gray-300, body.light-mode .text-gray-400 {
+            color: #57606a !important;
+        }
+        body.light-mode footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="self-end text-white mb-6" id="closeMobileMenu">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <a href="#features" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-features">Fitur</a>
+        <a href="#about" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-about">Tentang</a>
+        <a href="#contact" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-contact">Kontak</a>
+        <a href="dashboard.html" class="mt-4 px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition text-center" data-i18n="nav-dashboard">Dashboard</a>
+        <div class="mt-6 pt-6 border-t border-white/10 flex gap-2">
+            <button id="mobileThemeToggle" class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="mobileLangToggle" class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
+                <span id="mobileLangDisplay">ID</span>
+            </button>
+        </div>
+    </div>
+    
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="logo.svg" alt="Bimbel Brawijaya" class="w-10 h-10">
+                    <span class="text-xl font-semibold">Bimbel Brawijaya</span>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#features" class="text-gray-300 hover:text-white transition" data-i18n="nav-features">Fitur</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition" data-i18n="nav-about">Tentang</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition" data-i18n="nav-contact">Kontak</a>
+                    <button id="themeToggle" class="p-2 text-gray-300 hover:text-white transition" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="langToggle" class="px-3 py-2 text-gray-300 hover:text-white transition font-semibold" title="Change Language">
+                        <span id="langDisplay">ID</span>
+                    </button>
+                    <a href="dashboard.html" class="px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition" data-i18n="nav-dashboard">Dashboard</a>
+                </div>
+                <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-bg pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 stat-badge">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span class="text-sm text-gray-300" data-i18n="hero-badge">Sistem K3 Terintegrasi untuk Institusi Pendidikan</span>
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                    <span class="gradient-text" data-i18n="hero-title-1">Keselamatan kerja</span><br/>
+                    <span class="text-white" data-i18n="hero-title-2">yang terkelola dengan baik</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto" data-i18n="hero-desc">
+                    Platform modern untuk mengelola Kesehatan dan Keselamatan Kerja (K3) di lingkungan pendidikan. 
+                    Mudah, aman, dan terintegrasi.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                    <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                        <span data-i18n="hero-btn-primary">Buka Dashboard</span>
+                    </a>
+                    <a href="#features" class="btn-secondary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        <span data-i18n="hero-btn-secondary">Lihat Demo</span>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
+                    <div>
+                        <div class="text-3xl font-bold text-amber-400 mb-1">99.9%</div>
+                        <div class="text-sm text-gray-400" data-i18n="hero-stat-uptime">Uptime</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-amber-400 mb-1">50+</div>
+                        <div class="text-sm text-gray-400" data-i18n="hero-stat-institutions">Institusi</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-amber-400 mb-1">24/7</div>
+                        <div class="text-sm text-gray-400" data-i18n="hero-stat-support">Support</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 glow">
+                <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="https://placehold.co/1200x700/161b22/ffffff?text=Dashboard+Preview" alt="Dashboard Preview" class="w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4"><span data-i18n="features-title">Fitur lengkap untuk</span> <span class="text-amber-400" data-i18n="features-title-highlight">manajemen K3</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-i18n="features-subtitle">Semua yang Anda butuhkan untuk mengelola keselamatan kerja dalam satu platform</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" data-i18n="feature-incident-title">Laporan Insiden</h3>
+                    <p class="text-gray-400 mb-4" data-i18n="feature-incident-desc">Laporkan insiden dan kondisi tidak aman dengan mudah. Tracking otomatis dan notifikasi real-time.</p>
+                    <a href="dashboard.html#lapor-insiden" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                        <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" data-i18n="feature-education-title">Materi Edukasi</h3>
+                    <p class="text-gray-400 mb-4" data-i18n="feature-education-desc">Akses materi K3, prosedur darurat, dan kebijakan keselamatan dalam satu tempat.</p>
+                    <a href="dashboard.html#materi-edukasi" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                        <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="feature-card p-8 rounded-xl">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" data-i18n="feature-analytics-title">Analytics & Reporting</h3>
+                    <p class="text-gray-400 mb-4" data-i18n="feature-analytics-desc">Dashboard analitik komprehensif untuk monitoring keselamatan dan compliance.</p>
+                    <a href="dashboard.html" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                        <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6" data-i18n="quick-access-title">Akses cepat dan mudah</h2>
+                    <p class="text-xl text-gray-400 mb-6" data-i18n="quick-access-desc">
+                        Interface yang intuitif membuat manajemen K3 menjadi sederhana. 
+                        Tidak perlu training berbulan-bulan.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300" data-i18n="quick-access-1">Dashboard real-time untuk monitoring</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300" data-i18n="quick-access-2">Formulir digital untuk semua proses</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300" data-i18n="quick-access-3">Notifikasi otomatis via email & SMS</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="code-block p-6">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-sm text-gray-400 ml-2">system-info.txt</span>
+                    </div>
+                    <pre class="text-sm text-gray-300 leading-relaxed"><code><span class="text-purple-400">Status</span>: <span class="text-green-400">Active</span>
+<span class="text-purple-400">Laporan Hari Ini</span>: <span class="text-amber-400">2 insiden baru</span>
+<span class="text-purple-400">Prosedur Darurat</span>: <span class="text-green-400">Tersedia</span>
+<span class="text-purple-400">Materi Edukasi</span>: <span class="text-amber-400">24 modul</span>
+<span class="text-purple-400">Users Online</span>: <span class="text-blue-400">47</span>
+<span class="text-purple-400">Next Training</span>: <span class="text-gray-400">Jumat, 26 Sept</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6"><span data-i18n="cta-title-1">Siap untuk meningkatkan</span> <span class="text-amber-400" data-i18n="cta-title-2">keselamatan kerja</span>?</h2>
+            <p class="text-xl text-gray-400 mb-10" data-i18n="cta-subtitle">Bergabunglah dengan 50+ institusi pendidikan yang telah mempercayai platform kami.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3">
+                    <span data-i18n="cta-btn-start">Mulai Sekarang</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
+                <a href="#contact" class="btn-secondary px-8 py-4 rounded-lg text-white font-semibold">
+                    <span data-i18n="cta-btn-contact">Hubungi Kami</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="border-t border-white/10 py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="logo.svg" alt="Bimbel Brawijaya" class="w-8 h-8">
+                        <span class="font-semibold">Bimbel Brawijaya</span>
+                    </div>
+                    <p class="text-sm text-gray-400" data-i18n="footer-tagline">Platform K3 terpercaya untuk institusi pendidikan di Indonesia.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3" data-i18n="footer-platform">Platform</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="dashboard.html" class="hover:text-white transition" data-i18n="nav-dashboard">Dashboard</a></li>
+                        <li><a href="dashboard.html#lapor-insiden" class="hover:text-white transition" data-i18n="feature-incident-title">Lapor Insiden</a></li>
+                        <li><a href="dashboard.html#materi-edukasi" class="hover:text-white transition" data-i18n="feature-education-title">Materi Edukasi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3" data-i18n="footer-company">Perusahaan</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-about">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-career">Karir</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-contact">Kontak</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3" data-i18n="footer-legal">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-privacy">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-terms">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-security">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 text-center text-sm text-gray-400">
+                <p data-i18n="footer-copyright">&copy; 2025 Bimbel Brawijaya. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations for Landing Page
+        const translations = {
+            id: {
+                'nav-features': 'Fitur',
+                'nav-about': 'Tentang',
+                'nav-contact': 'Kontak',
+                'nav-dashboard': 'Dashboard',
+                // Hero Section
+                'hero-badge': 'Sistem K3 Terintegrasi untuk Institusi Pendidikan',
+                'hero-title-1': 'Keselamatan kerja',
+                'hero-title-2': 'yang terkelola dengan baik',
+                'hero-desc': 'Platform modern untuk mengelola Kesehatan dan Keselamatan Kerja (K3) di lingkungan pendidikan. Mudah, aman, dan terintegrasi.',
+                'hero-btn-primary': 'Buka Dashboard',
+                'hero-btn-secondary': 'Lihat Demo',
+                'hero-stat-uptime': 'Uptime',
+                'hero-stat-institutions': 'Institusi',
+                'hero-stat-support': 'Support',
+                // Features Section
+                'features-title': 'Fitur lengkap untuk',
+                'features-title-highlight': 'manajemen K3',
+                'features-subtitle': 'Semua yang Anda butuhkan untuk mengelola keselamatan kerja dalam satu platform',
+                'feature-incident-title': 'Laporan Insiden',
+                'feature-incident-desc': 'Laporkan insiden dan kondisi tidak aman dengan mudah. Tracking otomatis dan notifikasi real-time.',
+                'feature-education-title': 'Materi Edukasi',
+                'feature-education-desc': 'Akses materi K3, prosedur darurat, dan kebijakan keselamatan dalam satu tempat.',
+                'feature-analytics-title': 'Analytics & Reporting',
+                'feature-analytics-desc': 'Dashboard analitik komprehensif untuk monitoring keselamatan dan compliance.',
+                'feature-learn-more': 'Pelajari lebih lanjut',
+                // Quick Access Section
+                'quick-access-title': 'Akses cepat dan mudah',
+                'quick-access-desc': 'Interface yang intuitif membuat manajemen K3 menjadi sederhana. Tidak perlu training berbulan-bulan.',
+                'quick-access-1': 'Dashboard real-time untuk monitoring',
+                'quick-access-2': 'Formulir digital untuk semua proses',
+                'quick-access-3': 'Notifikasi otomatis via email & SMS',
+                // CTA Section
+                'cta-title-1': 'Siap untuk meningkatkan',
+                'cta-title-2': 'keselamatan kerja',
+                'cta-subtitle': 'Bergabunglah dengan 50+ institusi pendidikan yang telah mempercayai platform kami.',
+                'cta-btn-start': 'Mulai Sekarang',
+                'cta-btn-contact': 'Hubungi Kami',
+                // Footer
+                'footer-tagline': 'Platform K3 terpercaya untuk institusi pendidikan di Indonesia.',
+                'footer-platform': 'Platform',
+                'footer-company': 'Perusahaan',
+                'footer-legal': 'Legal',
+                'footer-about': 'Tentang Kami',
+                'footer-career': 'Karir',
+                'footer-contact': 'Kontak',
+                'footer-privacy': 'Privacy Policy',
+                'footer-terms': 'Terms of Service',
+                'footer-security': 'Security',
+                'footer-copyright': '© 2025 Bimbel Brawijaya. All rights reserved.',
+            },
+            en: {
+                'nav-features': 'Features',
+                'nav-about': 'About',
+                'nav-contact': 'Contact',
+                'nav-dashboard': 'Dashboard',
+                // Hero Section
+                'hero-badge': 'Integrated K3 System for Educational Institutions',
+                'hero-title-1': 'Workplace safety',
+                'hero-title-2': 'well managed',
+                'hero-desc': 'A modern platform to manage Occupational Health and Safety (K3) in educational environments. Easy, secure, and integrated.',
+                'hero-btn-primary': 'Open Dashboard',
+                'hero-btn-secondary': 'View Demo',
+                'hero-stat-uptime': 'Uptime',
+                'hero-stat-institutions': 'Institutions',
+                'hero-stat-support': 'Support',
+                // Features Section
+                'features-title': 'Complete features for',
+                'features-title-highlight': 'K3 management',
+                'features-subtitle': 'Everything you need to manage workplace safety in one platform',
+                'feature-incident-title': 'Incident Reporting',
+                'feature-incident-desc': 'Report incidents and unsafe conditions easily. Automatic tracking and real-time notifications.',
+                'feature-education-title': 'Educational Materials',
+                'feature-education-desc': 'Access K3 materials, emergency procedures, and safety policies in one place.',
+                'feature-analytics-title': 'Analytics & Reporting',
+                'feature-analytics-desc': 'Comprehensive analytics dashboard for safety monitoring and compliance.',
+                'feature-learn-more': 'Learn more',
+                // Quick Access Section
+                'quick-access-title': 'Quick and easy access',
+                'quick-access-desc': 'Intuitive interface makes K3 management simple. No need for months of training.',
+                'quick-access-1': 'Real-time dashboard for monitoring',
+                'quick-access-2': 'Digital forms for all processes',
+                'quick-access-3': 'Automatic notifications via email & SMS',
+                // CTA Section
+                'cta-title-1': 'Ready to improve',
+                'cta-title-2': 'workplace safety',
+                'cta-subtitle': 'Join 50+ educational institutions that trust our platform.',
+                'cta-btn-start': 'Get Started',
+                'cta-btn-contact': 'Contact Us',
+                // Footer
+                'footer-tagline': 'Trusted K3 platform for educational institutions in Indonesia.',
+                'footer-platform': 'Platform',
+                'footer-company': 'Company',
+                'footer-legal': 'Legal',
+                'footer-about': 'About Us',
+                'footer-career': 'Careers',
+                'footer-contact': 'Contact',
+                'footer-privacy': 'Privacy Policy',
+                'footer-terms': 'Terms of Service',
+                'footer-security': 'Security',
+                'footer-copyright': '© 2025 Bimbel Brawijaya. All rights reserved.',
+            }
+        };
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+        }
+        
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        if (closeMobileMenu) closeMobileMenu.addEventListener('click', toggleMobileMenu);
+        if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+        
+        // Theme Toggle
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        
+        function setTheme(theme) {
+            const themeToggle = document.getElementById('themeToggle');
+            const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+            
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                if (mobileThemeToggle) mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('light-mode');
+                if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                if (mobileThemeToggle) mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            localStorage.setItem('theme', theme);
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        }
+        
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || getSystemTheme();
+        setTheme(savedTheme);
+        
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        
+        // Watch for system theme changes
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'light' : 'dark');
+            }
+        });
+        
+        // Language Toggle
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            const langDisplay = document.getElementById('langDisplay');
+            const mobileLangDisplay = document.getElementById('mobileLangDisplay');
+            if (langDisplay) langDisplay.textContent = lang.toUpperCase();
+            if (mobileLangDisplay) mobileLangDisplay.textContent = lang.toUpperCase();
+            
+            localStorage.setItem('language', lang);
+        }
+        
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('language') || 'id';
+            const newLang = currentLang === 'id' ? 'en' : 'id';
+            setLanguage(newLang);
+        }
+        
+        // Initialize language
+        const savedLang = localStorage.getItem('language') || 'id';
+        setLanguage(savedLang);
+        
+        const langToggle = document.getElementById('langToggle');
+        const mobileLangToggle = document.getElementById('mobileLangToggle');
+        if (langToggle) langToggle.addEventListener('click', toggleLanguage);
+        if (mobileLangToggle) mobileLangToggle.addEventListener('click', toggleLanguage);
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

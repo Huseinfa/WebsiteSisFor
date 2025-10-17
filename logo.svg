@@ -1,0 +1,39 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Outer gradient ring -->
+    <linearGradient id="outerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E91E63"/>
+      <stop offset="50%" stop-color="#9C27B0"/>
+      <stop offset="100%" stop-color="#FF9800"/>
+    </linearGradient>
+    
+    <!-- Inner red background -->
+    <radialGradient id="redBackground" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D32F2F"/>
+      <stop offset="100%" stop-color="#B71C1C"/>
+    </radialGradient>
+    
+    <!-- Yellow gradient for the main shape -->
+    <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFC107"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer gradient circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#outerGradient)" stroke="white" stroke-width="2"/>
+  
+  <!-- Inner red circle -->
+  <circle cx="50" cy="50" r="42" fill="url(#redBackground)"/>
+  
+  <!-- Main yellow curved shape resembling a graduation cap or academic symbol -->
+  <path d="M25 35 Q50 20 75 35 Q65 45 50 40 Q35 45 25 35 Z" fill="url(#yellowGradient)"/>
+  <path d="M30 45 Q50 60 70 45 Q60 55 50 50 Q40 55 30 45 Z" fill="url(#yellowGradient)"/>
+  
+  <!-- Graduation cap tassel -->
+  <path d="M60 25 L65 20 Q67 22 65 25 Q62 28 60 25 Z" fill="#D32F2F"/>
+  <line x1="65" y1="25" x2="68" y2="30" stroke="#D32F2F" stroke-width="2"/>
+  
+  <!-- Academic symbol enhancement -->
+  <circle cx="50" cy="42" r="3" fill="url(#redBackground)"/>
+</svg>
