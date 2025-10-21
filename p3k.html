@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>P3K — Materi Edukasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#0d1117;color:#e6edf3;padding:2rem}a{color:#f59e0b}</style>
+</head>
+<body>
+    <header class="max-w-4xl mx-auto mb-8">
+        <a href="dashboard.html#materi-edukasi" class="inline-flex items-center gap-2 mb-4 text-gray-300"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <h1 id="title" class="text-4xl font-bold mb-2">P3K Dasar di Kelas</h1>
+        <p id="subtitle" class="text-gray-400">Langkah pertolongan pertama untuk kejadian di kelas.</p>
+        <div class="mt-4">
+            <div class="inline-flex items-center gap-2" id="langButtons">
+                <button id="langId" class="px-3 py-2 bg-white/5 rounded">ID</button>
+                <button id="langEn" class="px-3 py-2 bg-white/5 rounded">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto prose prose-invert">
+        <article id="content-id">
+            <!-- Indonesian content will be injected here -->
+        </article>
+    </main>
+
+    <script>
+        const content = {
+            id: `
+                <h2 class="text-2xl font-semibold">P3K (Pertolongan Pertama Pada Kecelakaan)</h2>
+                <p><strong>P3K adalah tindakan cepat untuk mencegah kondisi memburuk sebelum tenaga medis datang. Di ruang kelas, hal ini bisa menyelamatkan nyawa, atau setidaknya — menghapus air mata kecil karena luka ringan.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 Tujuan P3K</h3>
+                <ul>
+                    <li>Menyelamatkan nyawa.</li>
+                    <li>Mencegah cedera menjadi lebih parah.</li>
+                    <li>Memberikan rasa aman kepada korban.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 Contoh Penanganan Dasar</h3>
+                <ul>
+                    <li><strong>Luka Gores / Lecet:</strong> Bersihkan luka dengan air bersih, oles antiseptik, dan tutup dengan kasa steril.</li>
+                    <li><strong>Memar / Bengkak:</strong> Kompres dingin selama 10–15 menit.</li>
+                    <li><strong>Pingsan:</strong> Baringkan korban, longgarkan pakaian ketat, dan beri udara segar.</li>
+                    <li><strong>Luka Bakar Ringan:</strong> Siram dengan air mengalir selama 10 menit, jangan dioles pasta gigi atau mentega.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">🧰 Isi Kotak P3K Ideal</h3>
+                <p>Kasa steril, plester, betadine, sarung tangan, gunting, kapas, dan obat antiseptik.</p>
+                <p class="mt-3">🌼 P3K adalah tindakan kecil dengan makna besar — karena dari pertolongan pertama, lahirlah harapan kedua.</p>
+            `,
+            en: `
+                <h2 class="text-2xl font-semibold">First Aid (P3K) Basics in Class</h2>
+                <p><strong>First aid is quick action to prevent a condition from worsening before medical help arrives. In a classroom setting, it can save lives or at least ease small wounds.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 First Aid Goals</h3>
+                <ul>
+                    <li>Save lives.</li>
+                    <li>Prevent injuries from becoming worse.</li>
+                    <li>Provide reassurance to the victim.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 Basic Handling Examples</h3>
+                <ul>
+                    <li><strong>Abrasions / Scrapes:</strong> Clean with clean water, apply antiseptic, and cover with sterile gauze.</li>
+                    <li><strong>Bruises / Swelling:</strong> Apply a cold compress for 10–15 minutes.</li>
+                    <li><strong>Fainting:</strong> Lay the person down, loosen tight clothing, and provide fresh air.</li>
+                    <li><strong>Minor Burns:</strong> Rinse with running water for 10 minutes; do not apply toothpaste or butter.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">🧰 Ideal First Aid Kit Contents</h3>
+                <p>Sterile gauze, plasters, betadine, gloves, scissors, cotton, and antiseptic medication.</p>
+                <p class="mt-3">🌼 Small first aid actions can have great meaning — from first aid, hope is reborn.</p>
+            `
+        };
+
+        function applyLang() {
+            const lang = localStorage.getItem('language') || 'id';
+            document.getElementById('content-id').innerHTML = content[lang] || content.id;
+            document.getElementById('title').textContent = lang === 'en' ? 'First Aid — Educational Material' : 'P3K Dasar di Kelas';
+            document.getElementById('subtitle').textContent = lang === 'en' ? 'Basic first-aid steps for classroom incidents.' : 'Langkah pertolongan pertama untuk kejadian di kelas.';
+        }
+
+        function setStoredLang(l) {
+            localStorage.setItem('language', l);
+            applyLang();
+        }
+
+        document.getElementById('langId').addEventListener('click', () => setStoredLang('id'));
+        document.getElementById('langEn').addEventListener('click', () => setStoredLang('en'));
+
+        const originalApply = applyLang;
+        applyLang = function () {
+            originalApply();
+            const lang = localStorage.getItem('language') || 'id';
+            const idBtn = document.getElementById('langId');
+            const enBtn = document.getElementById('langEn');
+            if (lang === 'id') {
+                idBtn.classList.add('bg-amber-500', 'text-black');
+                enBtn.classList.remove('bg-amber-500', 'text-black');
+            } else {
+                enBtn.classList.add('bg-amber-500', 'text-black');
+                idBtn.classList.remove('bg-amber-500', 'text-black');
+            }
+        };
+
+        applyLang();
+    </script>
+</body>
+</html>

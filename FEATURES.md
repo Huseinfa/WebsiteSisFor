@@ -94,49 +94,9 @@
 
 ---
 
-### 4. Gamification Elements 🏆
+### 4. Gamification Elements (removed)
 
-#### Points System:
-- **Current Points Display**: Shows in sidebar (350 points example)
-- **Badge Rank**: Silver Guardian status displayed
-- **Point Awards**:
-  - Report incident: +25 points
-  - Complete training module: +50-125 points
-  - Achieve milestones: Unlock badges
-
-#### Badge System:
-8 Total Badges (4 unlocked, 4 locked):
-
-**Unlocked Badges**:
-1. 🎓 **Pemula K3** (K3 Beginner) - +50 points
-2. 🧯 **Ahli APAR** (Fire Expert) - +100 points
-3. 🚑 **Penolong Pertama** (First Aider) - +75 points
-4. 🛡️ **Penjaga Keselamatan** (Safety Guardian) - +125 points
-
-**Locked Badges** (Requirements shown):
-5. Complete 10 modules
-6. Report 5 incidents
-7. 100% attendance at drills
-8. Reach 1000 points
-
-#### Leaderboard:
-- **Top 3 Rankings**: Gold 🥇, Silver 🥈, Bronze 🥉 medals
-- **Your Position**: Highlighted (#8 example)
-- **User Info**: Name, rank, total points
-- **Competitive Display**: Motivates participation
-
-#### Badge Tiers:
-- **Bronze Guardian** (0-500 points)
-- **Silver Guardian** (501-1000 points) ⭐ Current
-- **Gold Guardian** (1001-2000 points)
-- **Platinum Guardian** (2000+ points)
-
-**How to Use**:
-1. Navigate to "Pencapaian" (Achievements) section
-2. View your total points, badges earned, and ranking
-3. Click on locked badges to see requirements
-4. Complete activities to earn points and unlock badges
-5. Compete with colleagues on leaderboard
+The gamification feature (points, badges, and leaderboard) has been removed from the public UI and documentation. If you need to reintroduce gamification in the future, consider implementing server-side storage and proper privacy controls before re-enabling points or leaderboards.
 
 ---
 
@@ -224,13 +184,8 @@
 - [ ] Icons change appropriately
 - [ ] Smooth transitions
 
-### Gamification ✅
-- [ ] Points display correctly
-- [ ] Badges render properly
-- [ ] Leaderboard is readable
-- [ ] Locked badges show requirements
-- [ ] Animations work smoothly
-- [ ] Mobile-friendly layout
+### (Gamification removed)
+The gamification testing checklist has been removed because the feature is no longer part of the public UI.
 
 ---
 
@@ -249,7 +204,7 @@ Website SisFor/
 ## Credits
 
 **Implementation Date**: October 14, 2025  
-**Features**: Mobile Responsive, Multilingual, Theme Toggle, Gamification  
+**Features**: Mobile Responsive, Multilingual, Theme Toggle
 **Framework**: Tailwind CSS 3  
 **Icons**: Font Awesome 6.4  
 **Fonts**: Inter (Google Fonts)

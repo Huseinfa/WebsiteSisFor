@@ -19,7 +19,7 @@
         .content-section { display: none; animation: fadeIn 0.5s ease-in-out; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #notification { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+    /* notification removed */
         
         .dark-card {
             background: rgba(22, 27, 34, 0.6);
@@ -154,39 +154,7 @@
             background: rgba(93, 44, 50, 0.15);
         }
         
-        /* Gamification Styles */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        .badge-bronze {
-            background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%);
-            color: #fff;
-        }
-        .badge-silver {
-            background: linear-gradient(135deg, #c0c0c0 0%, #a8a8a8 100%);
-            color: #000;
-        }
-        .badge-gold {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #000;
-        }
-        .badge-platinum {
-            background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%);
-            color: #000;
-        }
-        .points-badge {
-            animation: bounce 2s ease-in-out infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        /* Gamification styles removed */
     </style>
 </head>
 <body>
@@ -234,25 +202,13 @@
                 </div>
                 <p class="text-sm text-gray-400" data-i18n="tagline">Keselamatan Prioritas Kita</p>
                 
-                <!-- User Points & Badge (Gamification) -->
-                <div class="mt-4 p-3 bg-white/5 rounded-lg border border-white/10">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs text-gray-400" data-i18n="your-points">Poin Anda</span>
-                        <span class="text-amber-400 font-bold text-lg">350</span>
-                    </div>
-                    <div class="badge badge-silver w-full justify-center">
-                        <i class="fas fa-medal"></i>
-                        <span data-i18n="silver-guardian">Silver Guardian</span>
-                    </div>
-                </div>
-            </div>
+                
             <nav class="flex-grow overflow-y-auto">
                 <ul class="mt-6">
                     <li><a href="#dashboard" class="nav-link active-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-tachometer-alt w-6 mr-3"></i> <span data-i18n="nav-dashboard">Dashboard</span></a></li>
-                    <li><a href="#achievements" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-trophy w-6 mr-3"></i> <span data-i18n="nav-achievements">Pencapaian</span></a></li>
                     <li><a href="#kebijakan" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-file-alt w-6 mr-3"></i> <span data-i18n="nav-policy">Kebijakan K3</span></a></li>
                     <li><a href="#prosedur-darurat" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-exclamation-triangle w-6 mr-3"></i> <span data-i18n="nav-emergency">Prosedur Darurat</span></a></li>
-                    <li><a href="#lapor-insiden" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-bullhorn w-6 mr-3"></i> <span data-i18n="nav-report">Lapor Insiden</span></a></li>
+                    <!-- Report Incident removed per request -->
                     <li><a href="#materi-edukasi" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-book-open w-6 mr-3"></i> <span data-i18n="nav-education">Materi Edukasi</span></a></li>
                     <li><a href="#kontak" class="nav-link flex items-center py-3 px-6 text-gray-300"><i class="fas fa-address-book w-6 mr-3"></i> <span data-i18n="nav-contact">Kontak Penting</span></a></li>
                 </ul>
@@ -260,12 +216,14 @@
             <div class="p-6 border-t border-white/10">
                 <!-- Desktop Theme & Language Toggle -->
                 <div class="hidden md:flex items-center justify-center gap-2 mb-4">
-                    <button id="themeToggle" class="flex-1 py-2 px-3 text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition">
-                        <i class="fas fa-moon mr-2"></i><span data-i18n="theme">Tema</span>
-                    </button>
-                    <button id="langToggleDesktop" class="flex-1 py-2 px-3 text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition">
-                        <i class="fas fa-language mr-2"></i><span id="currentLang">ID</span>
-                    </button>
+                    <div class="w-full flex gap-2">
+                        <button id="themeToggle" class="flex-1 py-2 px-3 text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <i class="fas fa-moon mr-2"></i><span data-i18n="theme">Tema</span>
+                        </button>
+                        <button id="langToggleDesktop" class="flex-1 py-2 px-3 text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <i class="fas fa-language mr-2"></i><span id="currentLang">ID</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <a href="index.html" class="flex items-center justify-center py-2 px-4 text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition">
@@ -288,18 +246,7 @@
             <!-- Dashboard Section -->
             <section id="dashboard" class="content-section active">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Quick Action Card: Report Incident -->
-                    <a href="#lapor-insiden" class="nav-link-card dark-card p-6 rounded-xl touch-manipulation">
-                        <div class="flex items-center">
-                            <div class="bg-red-500/10 p-4 rounded-full mr-4">
-                                <i class="fas fa-bullhorn text-2xl text-red-400"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-white" data-i18n="card-report">Lapor Insiden</h3>
-                                <p class="text-gray-400" data-i18n="card-report-desc">Laporkan kondisi tidak aman atau kecelakaan.</p>
-                            </div>
-                        </div>
-                    </a>
+                    <!-- Quick Action Card: Report Incident removed -->
                     <!-- Quick Action Card: Emergency Procedures -->
                     <a href="#prosedur-darurat" class="nav-link-card dark-card p-6 rounded-xl touch-manipulation">
                         <div class="flex items-center">
@@ -334,135 +281,6 @@
                 </div>
             </section>
             
-            <!-- Achievements Section (Gamification) -->
-            <section id="achievements" class="content-section">
-                <div class="mb-8">
-                    <h3 class="text-3xl font-bold text-white mb-2" data-i18n="your-achievements">Pencapaian Anda</h3>
-                    <p class="text-gray-400" data-i18n="achievements-desc">Kumpulkan lencana dan poin dengan menyelesaikan pelatihan K3</p>
-                </div>
-                
-                <!-- Points Summary -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="dark-card p-6 rounded-xl text-center">
-                        <div class="text-4xl font-bold text-amber-400 mb-2 points-badge">350</div>
-                        <p class="text-gray-400" data-i18n="total-points">Total Poin</p>
-                    </div>
-                    <div class="dark-card p-6 rounded-xl text-center">
-                        <div class="text-4xl font-bold text-purple-400 mb-2">7/12</div>
-                        <p class="text-gray-400" data-i18n="badges-earned">Lencana Diperoleh</p>
-                    </div>
-                    <div class="dark-card p-6 rounded-xl text-center">
-                        <div class="text-4xl font-bold text-green-400 mb-2">#8</div>
-                        <p class="text-gray-400" data-i18n="leaderboard-rank">Peringkat</p>
-                    </div>
-                </div>
-                
-                <!-- Badges Grid -->
-                <div class="dark-card p-6 rounded-xl mb-8">
-                    <h4 class="text-2xl font-semibold text-white mb-6" data-i18n="your-badges">Lencana Anda</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-amber-400">
-                            <i class="fas fa-graduation-cap text-4xl text-amber-400 mb-2"></i>
-                            <p class="text-sm font-semibold text-white" data-i18n="badge-beginner">Pemula K3</p>
-                            <p class="text-xs text-gray-400">+50 poin</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-red-400">
-                            <i class="fas fa-fire-extinguisher text-4xl text-red-400 mb-2"></i>
-                            <p class="text-sm font-semibold text-white" data-i18n="badge-fire">Ahli APAR</p>
-                            <p class="text-xs text-gray-400">+100 poin</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-green-400">
-                            <i class="fas fa-first-aid text-4xl text-green-400 mb-2"></i>
-                            <p class="text-sm font-semibold text-white" data-i18n="badge-firstaid">Penolong Pertama</p>
-                            <p class="text-xs text-gray-400">+75 poin</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-blue-400">
-                            <i class="fas fa-shield-alt text-4xl text-blue-400 mb-2"></i>
-                            <p class="text-sm font-semibold text-white" data-i18n="badge-safety">Penjaga Keselamatan</p>
-                            <p class="text-xs text-gray-400">+125 poin</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-white/10 opacity-50">
-                            <i class="fas fa-lock text-4xl text-gray-600 mb-2"></i>
-                            <p class="text-sm font-semibold text-gray-500" data-i18n="badge-locked">Terkunci</p>
-                            <p class="text-xs text-gray-600">Selesaikan 10 modul</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-white/10 opacity-50">
-                            <i class="fas fa-lock text-4xl text-gray-600 mb-2"></i>
-                            <p class="text-sm font-semibold text-gray-500" data-i18n="badge-locked">Terkunci</p>
-                            <p class="text-xs text-gray-600">Lapor 5 insiden</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-white/10 opacity-50">
-                            <i class="fas fa-lock text-4xl text-gray-600 mb-2"></i>
-                            <p class="text-sm font-semibold text-gray-500" data-i18n="badge-locked">Terkunci</p>
-                            <p class="text-xs text-gray-600">100% kehadiran drill</p>
-                        </div>
-                        <div class="text-center p-4 bg-white/5 rounded-lg border border-white/10 opacity-50">
-                            <i class="fas fa-lock text-4xl text-gray-600 mb-2"></i>
-                            <p class="text-sm font-semibold text-gray-500" data-i18n="badge-locked">Terkunci</p>
-                            <p class="text-xs text-gray-600">Capai 1000 poin</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Leaderboard -->
-                <div class="dark-card p-6 rounded-xl">
-                    <h4 class="text-2xl font-semibold text-white mb-6" data-i18n="leaderboard">Papan Peringkat</h4>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-4 bg-amber-500/10 rounded-lg border border-amber-400">
-                            <div class="flex items-center gap-4">
-                                <div class="text-2xl font-bold text-amber-400">🥇</div>
-                                <div>
-                                    <p class="font-semibold text-white">Andi Pratama</p>
-                                    <p class="text-sm text-gray-400">Gold Guardian</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-amber-400">1,250</p>
-                                <p class="text-xs text-gray-400" data-i18n="points">poin</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-gray-500/10 rounded-lg border border-gray-400">
-                            <div class="flex items-center gap-4">
-                                <div class="text-2xl font-bold text-gray-400">🥈</div>
-                                <div>
-                                    <p class="font-semibold text-white">Siti Nurhaliza</p>
-                                    <p class="text-sm text-gray-400">Silver Guardian</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-gray-400">980</p>
-                                <p class="text-xs text-gray-400" data-i18n="points">poin</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-orange-700/10 rounded-lg border border-orange-700">
-                            <div class="flex items-center gap-4">
-                                <div class="text-2xl font-bold text-orange-700">🥉</div>
-                                <div>
-                                    <p class="font-semibold text-white">Budi Santoso</p>
-                                    <p class="text-sm text-gray-400">Bronze Guardian</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-orange-700">750</p>
-                                <p class="text-xs text-gray-400" data-i18n="points">poin</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg">
-                            <div class="flex items-center gap-4">
-                                <div class="text-lg font-bold text-gray-400">8</div>
-                                <div>
-                                    <p class="font-semibold text-white">Anda</p>
-                                    <p class="text-sm text-gray-400">Silver Guardian</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-amber-400">350</p>
-                                <p class="text-xs text-gray-400" data-i18n="points">poin</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             
             <!-- Kebijakan K3 Section -->
             <section id="kebijakan" class="content-section dark-card p-8 rounded-xl">
@@ -521,43 +339,7 @@
                 </div>
             </section>
 
-            <!-- Lapor Insiden Section -->
-            <section id="lapor-insiden" class="content-section dark-card p-8 rounded-xl">
-                <h3 class="text-3xl font-bold text-white mb-1" data-i18n="form-title">Formulir Laporan Insiden K3</h3>
-                <p class="text-gray-400 mb-6" data-i18n="form-desc">Gunakan formulir ini untuk melaporkan kecelakaan, nyaris celaka (near miss), atau kondisi tidak aman.</p>
-                <form id="incident-form" class="space-y-4">
-                    <div>
-                        <label for="reporter_name" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="form-name">Nama Pelapor</label>
-                        <input type="text" id="reporter_name" name="reporter_name" required class="block w-full rounded-md shadow-sm sm:text-sm p-3">
-                    </div>
-                    <div>
-                        <label for="incident_date" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="form-datetime">Tanggal & Waktu Kejadian</label>
-                        <input type="datetime-local" id="incident_date" name="incident_date" required class="block w-full rounded-md shadow-sm sm:text-sm p-3">
-                    </div>
-                    <div>
-                        <label for="location" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="form-location">Lokasi Kejadian</label>
-                        <input type="text" id="location" name="location" data-i18n-placeholder="form-location-placeholder" placeholder="Contoh: Ruang Kelas 3, Koridor Lantai 2" required class="block w-full rounded-md shadow-sm sm:text-sm p-3">
-                    </div>
-                     <div>
-                        <label for="incident_type" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="form-type">Jenis Laporan</label>
-                        <select id="incident_type" name="incident_type" required class="block w-full rounded-md shadow-sm sm:text-sm p-3">
-                            <option data-i18n="form-type-unsafe">Kondisi Tidak Aman (contoh: kabel terkelupas)</option>
-                            <option data-i18n="form-type-nearmiss">Nyaris Celaka / Near Miss (hampir terjadi kecelakaan)</option>
-                            <option data-i18n="form-type-accident">Kecelakaan (menyebabkan cedera ringan)</option>
-                             <option data-i18n="form-type-other">Lainnya</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="form-description">Deskripsi Lengkap Kejadian</label>
-                        <textarea id="description" name="description" rows="4" required class="block w-full rounded-md shadow-sm sm:text-sm p-3"></textarea>
-                    </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn-primary inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white">
-                            <span data-i18n="form-submit">Kirim Laporan</span>
-                        </button>
-                    </div>
-                </form>
-            </section>
+            <!-- Lapor Insiden section removed per request -->
 
             <!-- Materi Edukasi Section -->
             <section id="materi-edukasi" class="content-section">
@@ -567,7 +349,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-ergonomics-title">Ergonomi Posisi Belajar</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-ergonomics-desc">Pelajari cara duduk dan menggunakan komputer dengan benar untuk menghindari nyeri punggung dan leher.</p>
-                            <a href="#" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="ergonomi.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                      <div class="dark-card rounded-xl overflow-hidden">
@@ -575,7 +357,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-fire-title">Penggunaan APAR</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-fire-desc">Panduan singkat cara menggunakan Alat Pemadam Api Ringan (APAR) dengan teknik PASS.</p>
-                            <a href="#" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="apar.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                     <div class="dark-card rounded-xl overflow-hidden">
@@ -583,7 +365,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-firstaid-title">P3K Dasar di Kelas</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-firstaid-desc">Langkah pertolongan pertama untuk luka gores, memar, dan cedera ringan lainnya yang umum terjadi.</p>
-                            <a href="#" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="p3k.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -620,23 +402,19 @@
         </main>
     </div>
 
-    <!-- Notification Popup -->
-    <div id="notification" class="fixed bottom-5 right-5 bg-amber-500 text-gray-900 py-3 px-5 rounded-lg shadow-xl translate-x-[120%] opacity-0 font-semibold">
-        <p>Laporan berhasil dikirim! Terima kasih.</p>
-    </div>
+    <!-- Notification removed -->
+
+    <!-- Modal removed: materials open on separate pages now -->
 
     <script>
         // Translations
         const translations = {
             id: {
                 'tagline': 'Keselamatan Prioritas Kita',
-                'your-points': 'Poin Anda',
-                'silver-guardian': 'Silver Guardian',
                 'nav-dashboard': 'Dashboard',
-                'nav-achievements': 'Pencapaian',
                 'nav-policy': 'Kebijakan K3',
                 'nav-emergency': 'Prosedur Darurat',
-                'nav-report': 'Lapor Insiden',
+                /* 'nav-report' removed */
                 'nav-education': 'Materi Edukasi',
                 'nav-contact': 'Kontak Penting',
                 'theme': 'Tema',
@@ -650,19 +428,7 @@
                 'announcements': 'Pengumuman K3',
                 'announcement-text': 'Akan diadakan simulasi evakuasi kebakaran pada hari Jumat, 26 September 2025. Seluruh staf dan siswa wajib mengikuti. Informasi lebih lanjut akan diumumkan melalui email.',
                 'announcement-by': 'Diumumkan oleh: Manajer K3 - 23 September 2025',
-                'your-achievements': 'Pencapaian Anda',
-                'achievements-desc': 'Kumpulkan lencana dan poin dengan menyelesaikan pelatihan K3',
-                'total-points': 'Total Poin',
-                'badges-earned': 'Lencana Diperoleh',
-                'leaderboard-rank': 'Peringkat',
-                'your-badges': 'Lencana Anda',
-                'badge-beginner': 'Pemula K3',
-                'badge-fire': 'Ahli APAR',
-                'badge-firstaid': 'Penolong Pertama',
-                'badge-safety': 'Penjaga Keselamatan',
-                'badge-locked': 'Terkunci',
-                'leaderboard': 'Papan Peringkat',
-                'points': 'poin',
+                /* Gamification translations removed */
                 // Policy Section
                 'policy-title': 'Kebijakan K3 Perusahaan',
                 'policy-intro': 'PT Bimbel Brawijaya berkomitmen untuk menyediakan lingkungan belajar dan bekerja yang aman dan sehat bagi semua siswa, pengajar, staf, dan pengunjung. Kami percaya bahwa semua kecelakaan kerja dan penyakit akibat kerja dapat dicegah.',
@@ -694,20 +460,7 @@
                 'emergency-medical-3': 'Berikan pertolongan pertama sesuai kemampuan (jika terlatih).',
                 'emergency-medical-4': 'Tenangkan korban dan jangan berkerumun.',
                 'emergency-medical-5': 'Ikuti arahan dari tim medis atau petugas K3 yang datang.',
-                // Report Incident Form
-                'form-title': 'Formulir Laporan Insiden K3',
-                'form-desc': 'Gunakan formulir ini untuk melaporkan kecelakaan, nyaris celaka (near miss), atau kondisi tidak aman.',
-                'form-name': 'Nama Pelapor',
-                'form-datetime': 'Tanggal & Waktu Kejadian',
-                'form-location': 'Lokasi Kejadian',
-                'form-location-placeholder': 'Contoh: Ruang Kelas 3, Koridor Lantai 2',
-                'form-type': 'Jenis Laporan',
-                'form-type-unsafe': 'Kondisi Tidak Aman (contoh: kabel terkelupas)',
-                'form-type-nearmiss': 'Nyaris Celaka / Near Miss (hampir terjadi kecelakaan)',
-                'form-type-accident': 'Kecelakaan (menyebabkan cedera ringan)',
-                'form-type-other': 'Lainnya',
-                'form-description': 'Deskripsi Lengkap Kejadian',
-                'form-submit': 'Kirim Laporan',
+                /* Report Incident form strings removed */
                 // Education Materials
                 'edu-ergonomics-title': 'Ergonomi Posisi Belajar',
                 'edu-ergonomics-desc': 'Pelajari cara duduk dan menggunakan komputer dengan benar untuk menghindari nyeri punggung dan leher.',
@@ -726,10 +479,7 @@
             },
             en: {
                 'tagline': 'Safety is Our Priority',
-                'your-points': 'Your Points',
-                'silver-guardian': 'Silver Guardian',
                 'nav-dashboard': 'Dashboard',
-                'nav-achievements': 'Achievements',
                 'nav-policy': 'K3 Policy',
                 'nav-emergency': 'Emergency Procedures',
                 'nav-report': 'Report Incident',
@@ -746,19 +496,7 @@
                 'announcements': 'K3 Announcements',
                 'announcement-text': 'A fire evacuation simulation will be held on Friday, September 26, 2025. All staff and students must participate. More information will be announced via email.',
                 'announcement-by': 'Announced by: K3 Manager - September 23, 2025',
-                'your-achievements': 'Your Achievements',
-                'achievements-desc': 'Collect badges and points by completing K3 training',
-                'total-points': 'Total Points',
-                'badges-earned': 'Badges Earned',
-                'leaderboard-rank': 'Rank',
-                'your-badges': 'Your Badges',
-                'badge-beginner': 'K3 Beginner',
-                'badge-fire': 'Fire Expert',
-                'badge-firstaid': 'First Aider',
-                'badge-safety': 'Safety Guardian',
-                'badge-locked': 'Locked',
-                'leaderboard': 'Leaderboard',
-                'points': 'points',
+                /* Gamification translations removed */
                 // Policy Section
                 'policy-title': 'Company K3 Policy',
                 'policy-intro': 'PT Bimbel Brawijaya is committed to providing a safe and healthy learning and working environment for all students, teachers, staff, and visitors. We believe that all work accidents and occupational diseases can be prevented.',
@@ -791,19 +529,7 @@
                 'emergency-medical-4': 'Calm the victim and avoid crowding.',
                 'emergency-medical-5': 'Follow instructions from medical team or K3 personnel who arrive.',
                 // Report Incident Form
-                'form-title': 'K3 Incident Report Form',
-                'form-desc': 'Use this form to report accidents, near misses, or unsafe conditions.',
-                'form-name': 'Reporter Name',
-                'form-datetime': 'Date & Time of Incident',
-                'form-location': 'Incident Location',
-                'form-location-placeholder': 'Example: Classroom 3, 2nd Floor Corridor',
-                'form-type': 'Report Type',
-                'form-type-unsafe': 'Unsafe Condition (e.g., exposed wiring)',
-                'form-type-nearmiss': 'Near Miss (almost had an accident)',
-                'form-type-accident': 'Accident (caused minor injury)',
-                'form-type-other': 'Other',
-                'form-description': 'Full Description of Incident',
-                'form-submit': 'Submit Report',
+                /* Report Incident form strings removed */
                 // Education Materials
                 'edu-ergonomics-title': 'Learning Posture Ergonomics',
                 'edu-ergonomics-desc': 'Learn how to sit and use computers correctly to avoid back and neck pain.',
@@ -812,6 +538,9 @@
                 'edu-firstaid-title': 'Basic First Aid in Class',
                 'edu-firstaid-desc': 'First aid steps for cuts, bruises, and other common minor injuries.',
                 'edu-readmore': 'Read More',
+                // Educational HTML content (English)
+                'edu-ergonomics-content': '<p><strong>Ergonomics is about aligning the human body with its working environment. For learning, ergonomics means creating sitting positions, lighting, and desk setups that keep the body comfortable and healthy.</strong></p><p><strong>Goal:</strong> Reduce the risk of back, neck, and wrist pain; improve focus; prevent long-term postural problems.</p><h5 class="mt-3 font-semibold">Basic Principles</h5><ul class="list-disc pl-5"><li><strong>Sitting Posture:</strong> Keep the back straight against the chair back, shoulders relaxed, elbows at ~90°.</li><li><strong>Desk & Chair Height:</strong> Desk level with elbows; feet should touch the floor or a footrest.</li><li><strong>Screen Position:</strong> Screen at eye level, 50–70 cm from the face.</li><li><strong>Microbreaks:</strong> Every 30–40 minutes, stand up and stretch.</li><li><strong>Lighting:</strong> Use natural light when possible; avoid screen glare.</li></ul>',
+                'edu-safety-content': '<h5 class="font-semibold">Fire Extinguishers (APAR)</h5><p>Fire extinguishers are useful for putting out small fires before they grow.</p><p><strong>Types:</strong> Water (wood/paper), Foam (liquids), Dry Chemical (multi-purpose), CO₂ (electrical).</p><p><strong>PASS Technique:</strong> Pull, Aim, Squeeze, Sweep.</p><h5 class="mt-3 font-semibold">First Aid (P3K)</h5><p>First aid is quick action to prevent a condition from worsening before medical help arrives.</p><ul class="list-disc pl-5"><li><strong>Abrasions/Cuts:</strong> Clean, apply antiseptic, cover with gauze.</li><li><strong>Bruises:</strong> Apply a cold compress for 10–15 minutes.</li><li><strong>Fainting:</strong> Lay the person down, loosen tight clothing, ensure fresh air.</li><li><strong>Minor Burns:</strong> Rinse with running water for 10 minutes.</li></ul>',
                 // Contact Section
                 'contact-title': 'Important K3 Contacts',
                 'contact-internal': 'Internal K3 Officer',
@@ -827,8 +556,6 @@
             const navCardLinks = document.querySelectorAll('.nav-link-card');
             const contentSections = document.querySelectorAll('.content-section');
             const pageTitle = document.getElementById('page-title');
-            const incidentForm = document.getElementById('incident-form');
-            const notification = document.getElementById('notification');
             
             // Mobile menu elements
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -848,19 +575,17 @@
             const pageTitles = {
                 id: {
                     'dashboard': 'Dashboard',
-                    'achievements': 'Pencapaian',
                     'kebijakan': 'Kebijakan K3',
                     'prosedur-darurat': 'Prosedur Darurat',
-                    'lapor-insiden': 'Lapor Insiden',
+                    /* 'lapor-insiden' removed */
                     'materi-edukasi': 'Materi Edukasi',
                     'kontak': 'Kontak Penting',
                 },
                 en: {
                     'dashboard': 'Dashboard',
-                    'achievements': 'Achievements',
                     'kebijakan': 'K3 Policy',
                     'prosedur-darurat': 'Emergency Procedures',
-                    'lapor-insiden': 'Report Incident',
+                    /* 'lapor-insiden' removed */
                     'materi-edukasi': 'Educational Materials',
                     'kontak': 'Important Contacts',
                 }
@@ -939,6 +664,14 @@
                         element.placeholder = translations[lang][key];
                     }
                 });
+
+                // Populate elements that require HTML content
+                document.querySelectorAll('[data-i18n-html]').forEach(element => {
+                    const key = element.getAttribute('data-i18n-html');
+                    if (translations[lang] && translations[lang][key]) {
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
                 
                 if (currentLangDisplay) {
                     currentLangDisplay.textContent = lang.toUpperCase();
@@ -983,6 +716,8 @@
                 if (targetSection) {
                     targetSection.classList.add('active');
                     pageTitle.textContent = pageTitles[currentLang][targetId] || pageTitles[currentLang]['dashboard'];
+                    // smooth scroll into view for better UX
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
 
                 // Update active link style
@@ -1019,26 +754,9 @@
             navLinks.forEach(link => link.addEventListener('click', handleNavClick));
             navCardLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
-            // Handle incident form submission
-            if (incidentForm) {
-                incidentForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    
-                    // Show notification
-                    notification.classList.remove('translate-x-[120%]', 'opacity-0');
-                    
-                    // Award points for reporting (Gamification)
-                    console.log('+25 points for incident report!');
-                    
-                    // Hide notification after 3 seconds
-                    setTimeout(() => {
-                        notification.classList.add('translate-x-[120%]', 'opacity-0');
-                    }, 3000);
+            // Modal behavior removed; links now navigate to separate pages normally.
 
-                    // Reset form
-                    incidentForm.reset();
-                });
-            }
+            // Incident reporting UI and form were removed per project request.
         });
     </script>
 </body>

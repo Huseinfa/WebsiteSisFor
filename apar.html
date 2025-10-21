@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>APAR — Materi Edukasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#0d1117;color:#e6edf3;padding:2rem}a{color:#f59e0b}</style>
+</head>
+<body>
+    <header class="max-w-4xl mx-auto mb-8">
+        <a href="dashboard.html#materi-edukasi" class="inline-flex items-center gap-2 mb-4 text-gray-300"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <h1 id="title" class="text-4xl font-bold mb-2">Penggunaan APAR</h1>
+        <p id="subtitle" class="text-gray-400">Panduan singkat penggunaan APAR (Alat Pemadam Api Ringan).</p>
+        <div class="mt-4">
+            <div class="inline-flex items-center gap-2" id="langButtons">
+                <button id="langId" class="px-3 py-2 bg-white/5 rounded">ID</button>
+                <button id="langEn" class="px-3 py-2 bg-white/5 rounded">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto prose prose-invert">
+        <article id="content-id">
+            <!-- Indonesian content will be injected here -->
+        </article>
+    </main>
+
+    <script>
+        const content = {
+            id: `
+                <h2 class="text-2xl font-semibold">🧯 Penggunaan APAR</h2>
+                <p><strong>APAR adalah sahabat pertama dalam menghadapi si jago merah sebelum ia membesar. Alat ini menjadi pelindung awal dari kebakaran kecil, yang jika terlambat ditangani, dapat menjadi bencana besar.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 Jenis-Jenis APAR</h3>
+                <ul>
+                    <li><strong>APAR Air (Water):</strong> Untuk kebakaran bahan padat seperti kertas dan kayu.</li>
+                    <li><strong>APAR Busa (Foam):</strong> Untuk bahan cair seperti bensin atau minyak.</li>
+                    <li><strong>APAR Serbuk Kimia (Dry Chemical):</strong> Cocok untuk berbagai jenis kebakaran (multi-purpose).</li>
+                    <li><strong>APAR CO₂ (Karbon Dioksida):</strong> Untuk kebakaran peralatan listrik.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 Teknik Menggunakan APAR — Metode PASS</h3>
+                <ol>
+                    <li><strong>P – Pull (Tarik)</strong> pin pengaman.</li>
+                    <li><strong>A – Aim (Arahkan)</strong> ke pangkal api.</li>
+                    <li><strong>S – Squeeze (Tekan)</strong> tuas pegangan.</li>
+                    <li><strong>S – Sweep (Sapu)</strong> semburan dari kiri ke kanan hingga api padam.</li>
+                </ol>
+                <h3 class="mt-4 font-semibold">⚠️ Hal yang Perlu Diperhatikan</h3>
+                <ul>
+                    <li>Cek tekanan tabung setiap bulan.</li>
+                    <li>Pastikan akses APAR tidak terhalang.</li>
+                    <li>Ganti atau isi ulang setelah digunakan, meski hanya sedikit.</li>
+                </ul>
+                <p class="mt-3">🔥 APAR bukan sekadar alat, tetapi penjaga harapan di detik-detik genting.</p>
+            `,
+            en: `
+                <h2 class="text-2xl font-semibold">🧯 Fire Extinguisher Usage</h2>
+                <p><strong>A fire extinguisher is your first friend in fighting a small fire before it grows. It serves as an early protector against fires that could become major incidents if not handled promptly.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 Types of Fire Extinguishers</h3>
+                <ul>
+                    <li><strong>Water (APAR Air):</strong> For solid combustible fires like paper and wood.</li>
+                    <li><strong>Foam (APAR Busa):</strong> For flammable liquids such as petrol or oil.</li>
+                    <li><strong>Dry Chemical (APAR Serbuk Kimia):</strong> Suitable for multiple fire types (multi-purpose).</li>
+                    <li><strong>CO₂ (Carbon Dioxide):</strong> For electrical equipment fires.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 PASS Technique</h3>
+                <ol>
+                    <li><strong>P – Pull</strong> the safety pin.</li>
+                    <li><strong>A – Aim</strong> at the base of the fire.</li>
+                    <li><strong>S – Squeeze</strong> the handle.</li>
+                    <li><strong>S – Sweep</strong> the discharge from side to side until the fire is out.</li>
+                </ol>
+                <h3 class="mt-4 font-semibold">⚠️ Notes</h3>
+                <ul>
+                    <li>Check cylinder pressure monthly.</li>
+                    <li>Ensure extinguishers are accessible (not blocked).</li>
+                    <li>Replace or refill after any use, even partial.</li>
+                </ul>
+                <p class="mt-3">🔥 A fire extinguisher is not just a tool, but a guardian of hope in critical moments.</p>
+            `
+        };
+
+        function applyLang() {
+            const lang = localStorage.getItem('language') || 'id';
+            document.getElementById('content-id').innerHTML = content[lang] || content.id;
+            document.getElementById('title').textContent = lang === 'en' ? 'Fire Extinguisher Usage' : 'Penggunaan APAR';
+            document.getElementById('subtitle').textContent = lang === 'en' ? 'Short guide to using a fire extinguisher (PASS).' : 'Panduan singkat penggunaan APAR (Alat Pemadam Api Ringan).';
+        }
+
+        function setStoredLang(l) {
+            localStorage.setItem('language', l);
+            applyLang();
+        }
+
+        document.getElementById('langId').addEventListener('click', () => setStoredLang('id'));
+        document.getElementById('langEn').addEventListener('click', () => setStoredLang('en'));
+
+        const originalApply = applyLang;
+        applyLang = function () {
+            originalApply();
+            const lang = localStorage.getItem('language') || 'id';
+            const idBtn = document.getElementById('langId');
+            const enBtn = document.getElementById('langEn');
+            if (lang === 'id') {
+                idBtn.classList.add('bg-amber-500', 'text-black');
+                enBtn.classList.remove('bg-amber-500', 'text-black');
+            } else {
+                enBtn.classList.add('bg-amber-500', 'text-black');
+                idBtn.classList.remove('bg-amber-500', 'text-black');
+            }
+        };
+
+        applyLang();
+    </script>
+</body>
+</html>

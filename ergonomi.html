@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ergonomi — Materi Edukasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#0d1117;color:#e6edf3;padding:2rem}a{color:#f59e0b}</style>
+</head>
+<body>
+    <header class="max-w-4xl mx-auto mb-8">
+        <a href="dashboard.html#materi-edukasi" class="inline-flex items-center gap-2 mb-4 text-gray-300"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <h1 id="title" class="text-4xl font-bold mb-2">Ergonomi Posisi Belajar</h1>
+        <p id="subtitle" class="text-gray-400">Pelajari prinsip ergonomi untuk posisi belajar yang sehat.</p>
+        <div class="mt-4">
+            <div class="inline-flex items-center gap-2" id="langButtons">
+                <button id="langId" class="px-3 py-2 bg-white/5 rounded">ID</button>
+                <button id="langEn" class="px-3 py-2 bg-white/5 rounded">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto prose prose-invert">
+        <article id="content-id">
+            <!-- Indonesian content will be injected here -->
+        </article>
+    </main>
+
+    <script>
+        const content = {
+            id: `
+                <h2 class="text-2xl font-semibold">🪑 Ergonomi — Posisi Belajar yang Sehat</h2>
+                <p><strong>Ergonomi adalah seni menyelaraskan tubuh manusia dengan lingkungan kerjanya. Dalam konteks belajar, ergonomi berarti menciptakan posisi duduk, pencahayaan, dan pengaturan meja yang menjaga tubuh tetap nyaman dan sehat.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 Tujuan Ergonomi</h3>
+                <ul>
+                    <li>Mengurangi risiko nyeri punggung, leher, dan pergelangan tangan.</li>
+                    <li>Meningkatkan fokus dan produktivitas belajar.</li>
+                    <li>Mencegah kelelahan otot dan gangguan postur jangka panjang.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 Prinsip Dasar Ergonomi Belajar</h3>
+                <ul>
+                    <li><strong>Posisi Duduk:</strong> Duduklah dengan punggung tegak menempel pada sandaran kursi. Bahu rileks, siku membentuk sudut 90°.</li>
+                    <li><strong>Ketinggian Meja dan Kursi:</strong> Meja sejajar dengan siku, dan kaki menyentuh lantai atau pijakan.</li>
+                    <li><strong>Posisi Layar Komputer:</strong> Layar sejajar dengan mata, sekitar 50–70 cm dari wajah.</li>
+                    <li><strong>Istirahat Mikro:</strong> Setiap 30–40 menit, berdiri, regangkan tubuh, atau berjalan sebentar.</li>
+                    <li><strong>Pencahayaan yang Tepat:</strong> Cahaya alami lebih baik; hindari silau langsung dari layar.</li>
+                </ul>
+                <p class="mt-3">🌱 Belajar yang ergonomis bukan hanya tentang duduk dengan benar, tetapi tentang menghargai tubuh sebagai wadah ilmu.</p>
+            `,
+            en: `
+                <h2 class="text-2xl font-semibold">🪑 Ergonomics — Healthy Learning Posture</h2>
+                <p><strong>Ergonomics is about aligning the human body with its working environment. For learning, ergonomics means creating sitting positions, lighting, and desk setups that keep the body comfortable and healthy.</strong></p>
+                <h3 class="mt-4 font-semibold">📘 Ergonomics Goals</h3>
+                <ul>
+                    <li>Reduce the risk of back, neck, and wrist pain.</li>
+                    <li>Improve focus and learning productivity.</li>
+                    <li>Prevent muscle fatigue and long-term postural problems.</li>
+                </ul>
+                <h3 class="mt-4 font-semibold">💡 Basic Principles for Learning Ergonomics</h3>
+                <ul>
+                    <li><strong>Sitting Posture:</strong> Sit with your back straight against the chair back. Shoulders relaxed, elbows at about 90°.</li>
+                    <li><strong>Desk & Chair Height:</strong> Desk level with elbows; feet should touch the floor or a footrest.</li>
+                    <li><strong>Screen Position:</strong> Screen at eye level, roughly 50–70 cm from the face.</li>
+                    <li><strong>Microbreaks:</strong> Every 30–40 minutes, stand up and stretch or take a short walk.</li>
+                    <li><strong>Lighting:</strong> Natural light is preferred; avoid direct screen glare.</li>
+                </ul>
+                <p class="mt-3">🌱 Ergonomic learning is about valuing the body as the vessel of knowledge.</p>
+            `
+        };
+
+        function applyLang() {
+            const lang = localStorage.getItem('language') || 'id';
+            document.getElementById('content-id').innerHTML = content[lang] || content.id;
+            document.getElementById('title').textContent = lang === 'en' ? 'Ergonomics — Educational Material' : 'Ergonomi Posisi Belajar';
+            document.getElementById('subtitle').textContent = lang === 'en' ? 'Learn core ergonomics principles for healthier studying.' : 'Pelajari prinsip ergonomi untuk posisi belajar yang sehat.';
+        }
+
+        // bilingual language buttons
+        function setStoredLang(l) {
+            localStorage.setItem('language', l);
+            applyLang();
+        }
+
+        document.getElementById('langId').addEventListener('click', () => setStoredLang('id'));
+        document.getElementById('langEn').addEventListener('click', () => setStoredLang('en'));
+
+        // enhance applyLang to reflect active button
+        const originalApply = applyLang;
+        applyLang = function () {
+            originalApply();
+            const lang = localStorage.getItem('language') || 'id';
+            const idBtn = document.getElementById('langId');
+            const enBtn = document.getElementById('langEn');
+            if (lang === 'id') {
+                idBtn.classList.add('bg-amber-500', 'text-black');
+                enBtn.classList.remove('bg-amber-500', 'text-black');
+            } else {
+                enBtn.classList.add('bg-amber-500', 'text-black');
+                idBtn.classList.remove('bg-amber-500', 'text-black');
+            }
+        };
+
+        applyLang();
+    </script>
+</body>
+</html>
