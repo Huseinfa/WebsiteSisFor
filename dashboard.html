@@ -32,9 +32,34 @@
             transform: translateY(-2px);
         }
         
+        /* Brand sidebar: fixed red gradient (does not change with theme) */
         .sidebar-gradient {
-            background: linear-gradient(180deg, #1c1c1e 0%, #161b22 50%, #0d1117 100%);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, #7f1d1d 0%, #991b1b 35%, #b91c1c 70%, #7f1d1d 100%);
+            /* subtle texture overlay for depth */
+            background-blend-mode: multiply;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        /* Keep sidebar text readable in both themes */
+        aside.sidebar-gradient,
+        aside.sidebar-gradient .text-white,
+        aside.sidebar-gradient .text-gray-300,
+        aside.sidebar-gradient .text-gray-400,
+        aside.sidebar-gradient .nav-link,
+        aside.sidebar-gradient .nav-link i,
+        aside.sidebar-gradient .text-sm,
+        aside.sidebar-gradient .text-xs {
+            color: #f3f4f6 !important; /* near-white on red */
+        }
+        body.light-mode aside.sidebar-gradient,
+        body.light-mode aside.sidebar-gradient .text-white,
+        body.light-mode aside.sidebar-gradient .text-gray-300,
+        body.light-mode aside.sidebar-gradient .text-gray-400,
+        body.light-mode aside.sidebar-gradient .nav-link,
+        body.light-mode aside.sidebar-gradient .nav-link i,
+        body.light-mode aside.sidebar-gradient .text-sm,
+        body.light-mode aside.sidebar-gradient .text-xs {
+            color: #f3f4f6 !important;
         }
         
         .nav-link {
@@ -42,13 +67,17 @@
             border-left: 3px solid transparent;
         }
         .nav-link:hover {
-            background: rgba(93, 44, 50, 0.3);
-            border-left-color: #C59A2E;
+            background: rgba(255, 255, 255, 0.08);
+            border-left-color: #F59E0B; /* amber-500 */
         }
         .nav-link.active-link {
-            background: rgba(93, 44, 50, 0.5);
-            border-left-color: #C59A2E;
-            color: #C59A2E !important;
+            background: rgba(255, 255, 255, 0.14);
+            border-left-color: #F59E0B;
+            color: #ffffff !important;
+        }
+        .nav-link:focus-visible {
+            outline: 2px solid #FBBF24; /* amber-400 */
+            outline-offset: -2px;
         }
         
         .btn-primary {
@@ -121,10 +150,7 @@
             background: #f6f8fa;
             color: #24292f;
         }
-        body.light-mode .sidebar-gradient {
-            background: linear-gradient(180deg, #ffffff 0%, #f6f8fa 50%, #eaeef2 100%);
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-        }
+        /* Keep sidebar red in light mode: no override for .sidebar-gradient */
         body.light-mode .dark-card {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
@@ -142,6 +168,18 @@
         body.light-mode .text-gray-300, body.light-mode .text-gray-400 {
             color: #57606a !important;
         }
+        /* Make policy/prose content readable in light mode */
+        body.light-mode .prose-dark {
+            color: #24292f !important;
+        }
+        body.light-mode .prose-dark p, 
+        body.light-mode .prose-dark li {
+            color: #24292f !important;
+        }
+        body.light-mode .prose-dark h3, 
+        body.light-mode .prose-dark h4 {
+            color: #24292f !important;
+        }
         body.light-mode input, body.light-mode textarea, body.light-mode select {
             background: #ffffff !important;
             border: 1px solid rgba(0, 0, 0, 0.2) !important;
@@ -155,6 +193,45 @@
         }
         
         /* Gamification styles removed */
+
+        /* Education Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            width: 100%;
+            max-width: 820px;
+            max-height: 85vh;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background: rgba(22,27,34,0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.75);
+        }
+        .modal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(22,27,34,0.9);
+        }
+        .modal-body {
+            padding: 1.25rem; overflow: auto; max-height: calc(85vh - 64px);
+        }
+        .close-btn { color: #e5e7eb; }
+        .close-btn:hover { color: #fff; }
+
+        /* Light mode modal */
+        body.light-mode .modal-card { background: #ffffff; border-color: rgba(0,0,0,0.1); }
+        body.light-mode .modal-header { background: #f6f8fa; border-color: rgba(0,0,0,0.1); }
+        body.light-mode .close-btn { color: #374151; }
+        body.light-mode .close-btn:hover { color: #111827; }
     </style>
 </head>
 <body>
@@ -162,7 +239,7 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Mobile Header -->
-    <div class="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#1c1c1e] border-b border-white/10 px-4 py-3 flex items-center justify-between">
+    <div class="md:hidden fixed top-0 left-0 right-0 z-50 border-b border-white/10 px-4 py-3 flex items-center justify-between" style="background: linear-gradient(90deg,#7f1d1d,#991b1b,#b91c1c);">
         <button class="mobile-menu-btn text-white p-2" id="mobileMenuBtn">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -299,6 +376,8 @@
                     <div class="text-right">
                         <p class="font-semibold text-white" data-i18n="policy-signature">Manajemen PT Bimbel Brawijaya</p>
                     </div>
+                    <!-- Legal references injected via translations -->
+                    <div class="mt-8" data-i18n-html="policy-refs"></div>
                 </div>
             </section>
 
@@ -349,7 +428,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-ergonomics-title">Ergonomi Posisi Belajar</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-ergonomics-desc">Pelajari cara duduk dan menggunakan komputer dengan benar untuk menghindari nyeri punggung dan leher.</p>
-                            <a href="ergonomi.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="ergonomi.html" data-edu-key="edu-ergonomics-content" data-edu-title="edu-ergonomics-title" class="edu-open text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                      <div class="dark-card rounded-xl overflow-hidden">
@@ -357,7 +436,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-fire-title">Penggunaan APAR</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-fire-desc">Panduan singkat cara menggunakan Alat Pemadam Api Ringan (APAR) dengan teknik PASS.</p>
-                            <a href="apar.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="apar.html" data-edu-key="edu-fire-content" data-edu-title="edu-fire-title" class="edu-open text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                     <div class="dark-card rounded-xl overflow-hidden">
@@ -365,7 +444,7 @@
                         <div class="p-6">
                             <h4 class="font-semibold text-lg text-white" data-i18n="edu-firstaid-title">P3K Dasar di Kelas</h4>
                             <p class="text-gray-400 mt-2" data-i18n="edu-firstaid-desc">Langkah pertolongan pertama untuk luka gores, memar, dan cedera ringan lainnya yang umum terjadi.</p>
-                            <a href="p3k.html" class="text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
+                            <a href="p3k.html" data-edu-key="edu-firstaid-content" data-edu-title="edu-firstaid-title" class="edu-open text-amber-400 hover:text-amber-300 font-medium mt-4 inline-block"><span data-i18n="edu-readmore">Baca Selengkapnya</span> &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -387,7 +466,7 @@
                          <i class="fas fa-ambulance text-2xl text-red-400 mr-4"></i>
                          <div>
                              <p class="font-semibold text-white" data-i18n="contact-ambulance">Ambulans / Gawat Darurat</p>
-                             <p class="text-gray-300">118 atau 119</p>
+                             <p class="text-gray-300">119</p>
                          </div>
                      </div>
                      <div class="flex items-center p-4 bg-white/5 rounded-lg border border-white/10">
@@ -404,7 +483,20 @@
 
     <!-- Notification removed -->
 
-    <!-- Modal removed: materials open on separate pages now -->
+    <!-- Education Modal -->
+    <div id="eduModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="eduModalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h4 id="eduModalTitle" class="text-xl font-semibold"></h4>
+                <button id="eduModalClose" class="close-btn" aria-label="Close">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="eduModalContent" class="prose-dark max-w-none" data-i18n-html=""></div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Translations
@@ -419,8 +511,6 @@
                 'nav-contact': 'Kontak Penting',
                 'theme': 'Tema',
                 'back-home': 'Kembali ke Beranda',
-                'card-report': 'Lapor Insiden',
-                'card-report-desc': 'Laporkan kondisi tidak aman atau kecelakaan.',
                 'card-emergency': 'Prosedur Darurat',
                 'card-emergency-desc': 'Langkah-langkah saat keadaan darurat.',
                 'card-education': 'Materi Edukasi',
@@ -440,6 +530,43 @@
                 'policy-5': 'Melakukan peninjauan dan perbaikan berkelanjutan terhadap sistem manajemen K3 kami.',
                 'policy-closing': 'Kebijakan ini berlaku untuk semua lokasi dan kegiatan di bawah naungan PT Bimbel Brawijaya. Komitmen terhadap K3 adalah tanggung jawab kita bersama.',
                 'policy-signature': 'Manajemen PT Bimbel Brawijaya',
+                // Policy references (HTML block)
+                'policy-refs': `
+                    <h4 class="text-2xl font-bold text-white mb-3">Rujukan Peraturan Perundang-undangan</h4>
+                    <div class="space-y-4 text-gray-300">
+                        <div>
+                            <p class="font-semibold">Undang‑Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja (UU 1/1970)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Landasan hukum utama K3 di Indonesia; definisi "tempat kerja" yang luas (Pasal 1) mencakup ruangan/halaman/sekelilingnya.</li>
+                                <li>Menjamin hak pekerja dan setiap orang di tempat kerja atas keselamatan mereka.</li>
+                                <li>Relevan bagi bimbel sebagai tempat kerja bagi guru/staf dan tempat aktivitas bagi siswa.</li>
+                                <li>Status: Berlaku.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Undang‑Undang Nomor 13 Tahun 2003 tentang Ketenagakerjaan (UU 13/2003)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Memperkuat hak pekerja, termasuk perlindungan K3 di lingkungan kerja.</li>
+                                <li>Pengelola bimbel berkewajiban menjaga kesejahteraan dan keselamatan staf/guru (ruang kelas, sarana, protokol kesehatan).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3 (PP 50/2012)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Mengatur penerapan Sistem Manajemen K3 (SMK3) di tempat kerja.</li>
+                                <li>Dapat dijadikan acuan internal: "kami menerapkan prinsip manajemen K3".</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Permenaker Nomor 5 Tahun 2018 tentang K3 Lingkungan Kerja</p>
+                            <ul class="list-disc pl-5">
+                                <li>Aturan spesifik mengenai faktor lingkungan kerja.</li>
+                                <li>Untuk bimbel: relevan untuk ruang kelas, ruang guru, dan area bersama.</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-400">Catatan: Ringkasan ini bersifat informasional; rujuk naskah resmi untuk ketentuan lengkap.</p>
+                    </div>
+                `,
                 // Emergency Procedures
                 'emergency-fire-title': 'Prosedur Saat Kebakaran',
                 'emergency-fire-1': 'Tetap tenang, jangan panik.',
@@ -469,6 +596,71 @@
                 'edu-firstaid-title': 'P3K Dasar di Kelas',
                 'edu-firstaid-desc': 'Langkah pertolongan pertama untuk luka gores, memar, dan cedera ringan lainnya yang umum terjadi.',
                 'edu-readmore': 'Baca Selengkapnya',
+                // Education modal HTML content (ID)
+                'edu-ergonomics-content': `
+                    <h5 class="text-2xl font-semibold mb-2">🪑 Ergonomi — Posisi Belajar yang Sehat</h5>
+                    <p><strong>Ergonomi adalah seni menyelaraskan tubuh manusia dengan lingkungan kerjanya. Dalam konteks belajar, ergonomi berarti menciptakan posisi duduk, pencahayaan, dan pengaturan meja yang menjaga tubuh tetap nyaman dan sehat.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 Tujuan Ergonomi</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Mengurangi risiko nyeri punggung, leher, dan pergelangan tangan.</li>
+                        <li>Meningkatkan fokus dan produktivitas belajar.</li>
+                        <li>Mencegah kelelahan otot dan gangguan postur jangka panjang.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 Prinsip Dasar Ergonomi Belajar</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Posisi Duduk:</strong> Duduklah dengan punggung tegak menempel pada sandaran kursi. Bahu rileks, siku membentuk sudut 90°.</li>
+                        <li><strong>Ketinggian Meja dan Kursi:</strong> Meja sejajar dengan siku, dan kaki menyentuh lantai atau pijakan.</li>
+                        <li><strong>Posisi Layar Komputer:</strong> Layar sejajar dengan mata, sekitar 50–70 cm dari wajah.</li>
+                        <li><strong>Istirahat Mikro:</strong> Setiap 30–40 menit, berdiri, regangkan tubuh, atau berjalan sebentar.</li>
+                        <li><strong>Pencahayaan yang Tepat:</strong> Cahaya alami lebih baik; hindari silau langsung dari layar.</li>
+                    </ul>
+                    <p class="mt-3">🌱 Belajar yang ergonomis bukan hanya tentang duduk dengan benar, tetapi tentang menghargai tubuh sebagai wadah ilmu.</p>
+                `,
+                'edu-fire-content': `
+                    <h5 class="text-2xl font-semibold mb-2">🧯 Penggunaan APAR</h5>
+                    <p><strong>APAR adalah sahabat pertama dalam menghadapi si jago merah sebelum ia membesar. Alat ini menjadi pelindung awal dari kebakaran kecil, yang jika terlambat ditangani, dapat menjadi bencana besar.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 Jenis-Jenis APAR</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>APAR Air (Water):</strong> Untuk kebakaran bahan padat seperti kertas dan kayu.</li>
+                        <li><strong>APAR Busa (Foam):</strong> Untuk bahan cair seperti bensin atau minyak.</li>
+                        <li><strong>APAR Serbuk Kimia (Dry Chemical):</strong> Cocok untuk berbagai jenis kebakaran (multi-purpose).</li>
+                        <li><strong>APAR CO₂ (Karbon Dioksida):</strong> Untuk kebakaran peralatan listrik.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 Teknik Menggunakan APAR — Metode PASS</h6>
+                    <ol class="list-decimal pl-5">
+                        <li><strong>P – Pull (Tarik)</strong> pin pengaman.</li>
+                        <li><strong>A – Aim (Arahkan)</strong> ke pangkal api.</li>
+                        <li><strong>S – Squeeze (Tekan)</strong> tuas pegangan.</li>
+                        <li><strong>S – Sweep (Sapu)</strong> semburan dari kiri ke kanan hingga api padam.</li>
+                    </ol>
+                    <h6 class="mt-4 font-semibold">⚠️ Hal yang Perlu Diperhatikan</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Cek tekanan tabung setiap bulan.</li>
+                        <li>Pastikan akses APAR tidak terhalang.</li>
+                        <li>Ganti atau isi ulang setelah digunakan, meski hanya sedikit.</li>
+                    </ul>
+                    <p class="mt-3">🔥 APAR bukan sekadar alat, tetapi penjaga harapan di detik-detik genting.</p>
+                `,
+                'edu-firstaid-content': `
+                    <h5 class="text-2xl font-semibold mb-2">⛑️ P3K (Pertolongan Pertama Pada Kecelakaan)</h5>
+                    <p><strong>P3K adalah tindakan cepat untuk mencegah kondisi memburuk sebelum tenaga medis datang. Di ruang kelas, hal ini bisa menyelamatkan nyawa, atau setidaknya — menghapus air mata kecil karena luka ringan.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 Tujuan P3K</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Menyelamatkan nyawa.</li>
+                        <li>Mencegah cedera menjadi lebih parah.</li>
+                        <li>Memberikan rasa aman kepada korban.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 Contoh Penanganan Dasar</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Luka Gores / Lecet:</strong> Bersihkan luka dengan air bersih, oles antiseptik, dan tutup dengan kasa steril.</li>
+                        <li><strong>Memar / Bengkak:</strong> Kompres dingin selama 10–15 menit.</li>
+                        <li><strong>Pingsan:</strong> Baringkan korban, longgarkan pakaian ketat, dan beri udara segar.</li>
+                        <li><strong>Luka Bakar Ringan:</strong> Siram dengan air mengalir selama 10 menit, jangan dioles pasta gigi atau mentega.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">🧰 Isi Kotak P3K Ideal</h6>
+                    <p>Kasa steril, plester, betadine, sarung tangan, gunting, kapas, dan obat antiseptik.</p>
+                    <p class="mt-3">🌼 P3K adalah tindakan kecil dengan makna besar — karena dari pertolongan pertama, lahirlah harapan kedua.</p>
+                `,
                 // Contact Section
                 'contact-title': 'Kontak Penting K3',
                 'contact-internal': 'Petugas K3 Internal',
@@ -482,13 +674,10 @@
                 'nav-dashboard': 'Dashboard',
                 'nav-policy': 'K3 Policy',
                 'nav-emergency': 'Emergency Procedures',
-                'nav-report': 'Report Incident',
                 'nav-education': 'Educational Materials',
                 'nav-contact': 'Important Contacts',
                 'theme': 'Theme',
                 'back-home': 'Back to Home',
-                'card-report': 'Report Incident',
-                'card-report-desc': 'Report unsafe conditions or accidents.',
                 'card-emergency': 'Emergency Procedures',
                 'card-emergency-desc': 'Steps during emergencies.',
                 'card-education': 'Educational Materials',
@@ -508,6 +697,43 @@
                 'policy-5': 'Conduct continuous review and improvement of our K3 management system.',
                 'policy-closing': 'This policy applies to all locations and activities under PT Bimbel Brawijaya. Commitment to K3 is our shared responsibility.',
                 'policy-signature': 'Management of PT Bimbel Brawijaya',
+                // Policy references (HTML block)
+                'policy-refs': `
+                    <h4 class="text-2xl font-bold text-white mb-3">Legal References</h4>
+                    <div class="space-y-4 text-gray-300">
+                        <div>
+                            <p class="font-semibold">Law No. 1 of 1970 on Occupational Safety (UU 1/1970)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Primary legal basis for OHS in Indonesia; broad definition of "workplace" (Article 1) includes rooms, yards, and surrounding areas.</li>
+                                <li>Ensures rights to safety for workers and any person present at the workplace.</li>
+                                <li>Relevant to tutoring centers as workplaces for teachers/staff and activity places for students.</li>
+                                <li>Status: In force.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Law No. 13 of 2003 on Manpower (UU 13/2003)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Strengthens workers' rights, including OHS protection at work.</li>
+                                <li>Tutoring management is responsible for staff/teachers’ welfare and safety (classrooms, facilities, health protocols).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Government Regulation No. 50 of 2012 on OHS Management System (PP 50/2012)</p>
+                            <ul class="list-disc pl-5">
+                                <li>Regulates implementation of OHS Management Systems (SMK3) at workplaces.</li>
+                                <li>Can serve as an internal reference: "we adopt OHS management principles".</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Minister of Manpower Regulation No. 5 of 2018 on OHS in Work Environment</p>
+                            <ul class="list-disc pl-5">
+                                <li>Specific rules on work environment factors.</li>
+                                <li>For tutoring centers: relevant to classrooms, teachers’ rooms, and shared areas.</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-400">Note: This summary is informational; refer to the official texts for full provisions.</p>
+                    </div>
+                `,
                 // Emergency Procedures
                 'emergency-fire-title': 'Fire Emergency Procedures',
                 'emergency-fire-1': 'Stay calm, don\'t panic.',
@@ -538,6 +764,71 @@
                 'edu-firstaid-title': 'Basic First Aid in Class',
                 'edu-firstaid-desc': 'First aid steps for cuts, bruises, and other common minor injuries.',
                 'edu-readmore': 'Read More',
+                // Education modal HTML content (EN)
+                'edu-ergonomics-content': `
+                    <h5 class="text-2xl font-semibold mb-2">🪑 Ergonomics — Healthy Learning Posture</h5>
+                    <p><strong>Ergonomics is about aligning the human body with its working environment. For learning, ergonomics means creating sitting positions, lighting, and desk setups that keep the body comfortable and healthy.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 Ergonomics Goals</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Reduce the risk of back, neck, and wrist pain.</li>
+                        <li>Improve focus and learning productivity.</li>
+                        <li>Prevent muscle fatigue and long-term postural problems.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 Basic Principles for Learning Ergonomics</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Sitting Posture:</strong> Sit with your back straight against the chair back. Shoulders relaxed, elbows at about 90°.</li>
+                        <li><strong>Desk & Chair Height:</strong> Desk level with elbows; feet should touch the floor or a footrest.</li>
+                        <li><strong>Screen Position:</strong> Screen at eye level, roughly 50–70 cm from the face.</li>
+                        <li><strong>Microbreaks:</strong> Every 30–40 minutes, stand up and stretch or take a short walk.</li>
+                        <li><strong>Lighting:</strong> Natural light is preferred; avoid direct screen glare.</li>
+                    </ul>
+                    <p class="mt-3">🌱 Ergonomic learning is about valuing the body as the vessel of knowledge.</p>
+                `,
+                'edu-fire-content': `
+                    <h5 class="text-2xl font-semibold mb-2">🧯 Fire Extinguisher Usage</h5>
+                    <p><strong>A fire extinguisher is your first friend in fighting a small fire before it grows. It serves as an early protector against fires that could become major incidents if not handled promptly.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 Types of Fire Extinguishers</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Water:</strong> For solid combustible fires like paper and wood.</li>
+                        <li><strong>Foam:</strong> For flammable liquids such as petrol or oil.</li>
+                        <li><strong>Dry Chemical:</strong> Suitable for multiple fire types (multi-purpose).</li>
+                        <li><strong>CO₂ (Carbon Dioxide):</strong> For electrical equipment fires.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 PASS Technique</h6>
+                    <ol class="list-decimal pl-5">
+                        <li><strong>P – Pull</strong> the safety pin.</li>
+                        <li><strong>A – Aim</strong> at the base of the fire.</li>
+                        <li><strong>S – Squeeze</strong> the handle.</li>
+                        <li><strong>S – Sweep</strong> the discharge from side to side until the fire is out.</li>
+                    </ol>
+                    <h6 class="mt-4 font-semibold">⚠️ Notes</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Check cylinder pressure monthly.</li>
+                        <li>Ensure extinguishers are accessible (not blocked).</li>
+                        <li>Replace or refill after any use, even partial.</li>
+                    </ul>
+                    <p class="mt-3">🔥 A fire extinguisher is not just a tool, but a guardian of hope in critical moments.</p>
+                `,
+                'edu-firstaid-content': `
+                    <h5 class="text-2xl font-semibold mb-2">⛑️ First Aid (P3K) Basics in Class</h5>
+                    <p><strong>First aid is quick action to prevent a condition from worsening before medical help arrives. In a classroom setting, it can save lives or at least ease small wounds.</strong></p>
+                    <h6 class="mt-4 font-semibold">📘 First Aid Goals</h6>
+                    <ul class="list-disc pl-5">
+                        <li>Save lives.</li>
+                        <li>Prevent injuries from becoming worse.</li>
+                        <li>Provide reassurance to the victim.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">💡 Basic Handling Examples</h6>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Abrasions / Scrapes:</strong> Clean with clean water, apply antiseptic, and cover with sterile gauze.</li>
+                        <li><strong>Bruises / Swelling:</strong> Apply a cold compress for 10–15 minutes.</li>
+                        <li><strong>Fainting:</strong> Lay the person down, loosen tight clothing, and provide fresh air.</li>
+                        <li><strong>Minor Burns:</strong> Rinse with running water for 10 minutes; do not apply toothpaste or butter.</li>
+                    </ul>
+                    <h6 class="mt-4 font-semibold">🧰 Ideal First Aid Kit Contents</h6>
+                    <p>Sterile gauze, plasters, betadine, gloves, scissors, cotton, and antiseptic medication.</p>
+                    <p class="mt-3">🌼 Small first aid actions can have great meaning — from first aid, hope is reborn.</p>
+                `,
                 // Educational HTML content (English)
                 'edu-ergonomics-content': '<p><strong>Ergonomics is about aligning the human body with its working environment. For learning, ergonomics means creating sitting positions, lighting, and desk setups that keep the body comfortable and healthy.</strong></p><p><strong>Goal:</strong> Reduce the risk of back, neck, and wrist pain; improve focus; prevent long-term postural problems.</p><h5 class="mt-3 font-semibold">Basic Principles</h5><ul class="list-disc pl-5"><li><strong>Sitting Posture:</strong> Keep the back straight against the chair back, shoulders relaxed, elbows at ~90°.</li><li><strong>Desk & Chair Height:</strong> Desk level with elbows; feet should touch the floor or a footrest.</li><li><strong>Screen Position:</strong> Screen at eye level, 50–70 cm from the face.</li><li><strong>Microbreaks:</strong> Every 30–40 minutes, stand up and stretch.</li><li><strong>Lighting:</strong> Use natural light when possible; avoid screen glare.</li></ul>',
                 'edu-safety-content': '<h5 class="font-semibold">Fire Extinguishers (APAR)</h5><p>Fire extinguishers are useful for putting out small fires before they grow.</p><p><strong>Types:</strong> Water (wood/paper), Foam (liquids), Dry Chemical (multi-purpose), CO₂ (electrical).</p><p><strong>PASS Technique:</strong> Pull, Aim, Squeeze, Sweep.</p><h5 class="mt-3 font-semibold">First Aid (P3K)</h5><p>First aid is quick action to prevent a condition from worsening before medical help arrives.</p><ul class="list-disc pl-5"><li><strong>Abrasions/Cuts:</strong> Clean, apply antiseptic, cover with gauze.</li><li><strong>Bruises:</strong> Apply a cold compress for 10–15 minutes.</li><li><strong>Fainting:</strong> Lay the person down, loosen tight clothing, ensure fresh air.</li><li><strong>Minor Burns:</strong> Rinse with running water for 10 minutes.</li></ul>',
@@ -571,6 +862,12 @@
             const langToggle = document.getElementById('langToggle');
             const langToggleDesktop = document.getElementById('langToggleDesktop');
             const currentLangDisplay = document.getElementById('currentLang');
+            // Modal elements
+            const eduModal = document.getElementById('eduModal');
+            const eduModalTitle = document.getElementById('eduModalTitle');
+            const eduModalContent = document.getElementById('eduModalContent');
+            const eduModalClose = document.getElementById('eduModalClose');
+            let lastFocusedEl = null;
 
             const pageTitles = {
                 id: {
@@ -623,6 +920,14 @@
                     if (themeToggleMobile) themeToggleMobile.innerHTML = '<i class="fas fa-moon text-lg"></i>';
                 }
                 localStorage.setItem('theme', theme);
+                // Sync modal content colors (prose) with theme
+                if (eduModalContent) {
+                    if (theme === 'light') {
+                        eduModalContent.classList.remove('prose-dark');
+                    } else {
+                        eduModalContent.classList.add('prose-dark');
+                    }
+                }
             }
             
             function toggleTheme() {
@@ -683,6 +988,19 @@
                 const currentSection = window.location.hash.substring(1) || 'dashboard';
                 if (pageTitles[lang] && pageTitles[lang][currentSection]) {
                     pageTitle.textContent = pageTitles[lang][currentSection];
+                }
+                // If modal is open, refresh its content in the new language
+                if (eduModal && eduModal.classList.contains('active') && eduModalContent && eduModalContent.dataset && eduModalContent.dataset.i18nHtml) {
+                    const key = eduModalContent.getAttribute('data-i18n-html');
+                    if (translations[lang] && translations[lang][key]) {
+                        eduModalContent.innerHTML = translations[lang][key];
+                    }
+                    if (eduModalTitle && eduModalTitle.dataset && eduModalTitle.dataset.i18n) {
+                        const tKey = eduModalTitle.getAttribute('data-i18n');
+                        if (translations[lang] && translations[lang][tKey]) {
+                            eduModalTitle.textContent = translations[lang][tKey];
+                        }
+                    }
                 }
             }
             
@@ -755,6 +1073,65 @@
             navCardLinks.forEach(link => link.addEventListener('click', handleNavClick));
 
             // Modal behavior removed; links now navigate to separate pages normally.
+            // Education Modal: open on "Baca Selengkapnya"
+            function openEduModal(key, titleKey) {
+                const lang = localStorage.getItem('language') || 'id';
+                if (!eduModal || !eduModalContent) return;
+                // Set content
+                eduModalContent.setAttribute('data-i18n-html', key);
+                eduModalContent.innerHTML = translations[lang][key] || '';
+                // Set title
+                if (titleKey && eduModalTitle) {
+                    eduModalTitle.setAttribute('data-i18n', titleKey);
+                    eduModalTitle.textContent = translations[lang][titleKey] || '';
+                }
+                // Theme sync for prose color
+                const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+                if (theme === 'light') eduModalContent.classList.remove('prose-dark');
+                else eduModalContent.classList.add('prose-dark');
+
+                // Open modal
+                lastFocusedEl = document.activeElement;
+                eduModal.classList.add('active');
+                // Focus close button for accessibility
+                if (eduModalClose) eduModalClose.focus();
+            }
+
+            function closeEduModal() {
+                if (!eduModal) return;
+                eduModal.classList.remove('active');
+                // Return focus to last element
+                if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+                    lastFocusedEl.focus();
+                }
+            }
+
+            // Intercept clicks
+            document.querySelectorAll('.edu-open').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const key = el.getAttribute('data-edu-key');
+                    const titleKey = el.getAttribute('data-edu-title');
+                    openEduModal(key, titleKey);
+                });
+            });
+
+            // Close actions
+            if (eduModalClose) eduModalClose.addEventListener('click', closeEduModal);
+            if (eduModal) {
+                eduModal.addEventListener('click', (e) => {
+                    if (e.target === eduModal) {
+                        closeEduModal();
+                    }
+                });
+            }
+
+            // ESC key to close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && eduModal && eduModal.classList.contains('active')) {
+                    closeEduModal();
+                }
+            });
 
             // Incident reporting UI and form were removed per project request.
         });

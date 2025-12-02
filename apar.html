@@ -7,7 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#0d1117;color:#e6edf3;padding:2rem}a{color:#f59e0b}</style>
+    <style>
+        body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#0d1117;color:#e6edf3;padding:2rem}
+        a{color:#f59e0b}
+        /* Light mode to match dashboard */
+    body.light-mode{background:#f6f8fa;color:#24292f}
+    body.light-mode h1,body.light-mode h2,body.light-mode h3,body.light-mode h4{color:#24292f}
+    body.light-mode .text-gray-300{color:#57606a!important}
+    body.light-mode .text-gray-400{color:#57606a!important}
+    body.light-mode a{color:#b45309}
+    body.light-mode a:hover{color:#92400e}
+    /* Better contrast for language buttons in light mode */
+    body.light-mode #langButtons button{background:#e5e7eb;color:#111827}
+    body.light-mode #langButtons button:hover{background:#d1d5db}
+    </style>
 </head>
 <body>
     <header class="max-w-4xl mx-auto mb-8">
@@ -22,13 +35,38 @@
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto prose prose-invert">
+    <main id="contentMain" class="max-w-4xl mx-auto prose prose-invert">
         <article id="content-id">
             <!-- Indonesian content will be injected here -->
         </article>
     </main>
 
     <script>
+        // Apply theme from dashboard (localStorage: 'theme' = 'light' | 'dark')
+        (function applyThemeFromStorage(){
+            const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            const main = document.getElementById('contentMain');
+            if(theme === 'light'){
+                document.body.classList.add('light-mode');
+                if(main) main.classList.remove('prose-invert');
+            } else {
+                document.body.classList.remove('light-mode');
+                if(main) main.classList.add('prose-invert');
+            }
+            window.addEventListener('storage', (e)=>{
+                if(e.key === 'theme'){
+                    const newTheme = e.newValue === 'light' ? 'light' : 'dark';
+                    if(newTheme === 'light'){
+                        document.body.classList.add('light-mode');
+                        if(main) main.classList.remove('prose-invert');
+                    } else {
+                        document.body.classList.remove('light-mode');
+                        if(main) main.classList.add('prose-invert');
+                    }
+                }
+            });
+        })();
+
         const content = {
             id: `
                 <h2 class="text-2xl font-semibold">🧯 Penggunaan APAR</h2>

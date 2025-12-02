@@ -1,0 +1,22 @@
+{
+  "name": "websitesisfor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Huseinfa/WebsiteSisFor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Huseinfa/WebsiteSisFor/issues"
+  },
+  "homepage": "https://github.com/Huseinfa/WebsiteSisFor#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.9.2"
+  }
+}

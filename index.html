@@ -24,9 +24,30 @@
         }
         
         .glass-nav {
-            background: rgba(13, 17, 23, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            /* Brand red gradient to match dashboard sidebar */
+            background: linear-gradient(90deg, #7f1d1d, #991b1b, #b91c1c);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        /* Keep navbar readable across themes */
+        .glass-nav .text-gray-300,
+        .glass-nav .text-white,
+        .glass-nav a,
+        .glass-nav button,
+        .glass-nav span,
+        .glass-nav i,
+        .glass-nav svg {
+            color: #ffffff !important;
+            fill: #ffffff !important;
+        }
+        .glass-nav a:hover,
+        .glass-nav button:hover {
+            color: #ffffff !important;
+        }
+        .glass-nav a:focus-visible,
+        .glass-nav button:focus-visible {
+            outline: 2px solid #FBBF24; /* amber-400 */
+            outline-offset: 2px;
         }
         
         .gradient-text {
@@ -125,9 +146,24 @@
             background: #f6f8fa;
             color: #24292f;
         }
+        /* Keep navbar brand gradient in light mode */
         body.light-mode .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, #7f1d1d, #991b1b, #b91c1c);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        /* Force white text/icons inside navbar in light mode (override generic light-mode text rules) */
+        body.light-mode .glass-nav,
+        body.light-mode .glass-nav a,
+        body.light-mode .glass-nav button,
+        body.light-mode .glass-nav span,
+        body.light-mode .glass-nav i,
+        body.light-mode .glass-nav svg,
+        body.light-mode .glass-nav .text-white,
+        body.light-mode .glass-nav .text-gray-300,
+        body.light-mode .glass-nav .text-gray-400 {
+            color: #ffffff !important;
+            fill: #ffffff !important;
         }
         body.light-mode .hero-bg {
             background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93, 44, 50, 0.1), transparent),
@@ -160,6 +196,11 @@
         body.light-mode footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
+
+        /* Keep primary CTA button text white in both themes */
+        .btn-primary { color: #ffffff !important; }
+        .btn-primary * { color: #ffffff !important; }
+        .btn-primary svg { color: #ffffff !important; }
     </style>
 </head>
 <body>
@@ -171,7 +212,8 @@
         <button class="self-end text-white mb-6" id="closeMobileMenu">
             <i class="fas fa-times text-2xl"></i>
         </button>
-        <a href="#features" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-features">Fitur</a>
+    <a href="#features" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-features">Fitur</a>
+    <a href="#profile" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-profile">Profil</a>
         <a href="#about" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-about">Tentang</a>
         <a href="#contact" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-contact">Kontak</a>
         <a href="dashboard.html" class="mt-4 px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition text-center" data-i18n="nav-dashboard">Dashboard</a>
@@ -194,6 +236,7 @@
                 </div>
                 <div class="hidden md:flex items-center gap-6">
                     <a href="#features" class="text-gray-300 hover:text-white transition" data-i18n="nav-features">Fitur</a>
+                    <a href="#profile" class="text-gray-300 hover:text-white transition" data-i18n="nav-profile">Profil</a>
                     <a href="#about" class="text-gray-300 hover:text-white transition" data-i18n="nav-about">Tentang</a>
                     <a href="#contact" class="text-gray-300 hover:text-white transition" data-i18n="nav-contact">Kontak</a>
                     <button id="themeToggle" class="p-2 text-gray-300 hover:text-white transition" title="Toggle Theme">
@@ -263,7 +306,42 @@
 
             <div class="mt-16 glow">
                 <div class="rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                    <img src="https://placehold.co/1200x700/161b22/ffffff?text=Dashboard+Preview" alt="Dashboard Preview" class="w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Profile Section -->
+    <section id="profile" class="py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="feature-card p-8 rounded-xl">
+                <h2 class="text-4xl font-bold mb-6" data-i18n="profile-title">Profil Perusahaan</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <!-- Text content -->
+                    <div class="space-y-4 order-2 md:order-1">
+                        <p class="text-gray-400" data-i18n="profile-body-1">
+                            Bimbingan Belajar Dan Motivasi Brawijaya — berpengalaman selama 9 tahun dalam dunia bimbingan belajar dan memiliki 4 area cabang di Malang Raya. BM BRAWIJAYA adalah satu-satunya bimbingan belajar yang totalitas memberikan pendampingan siswa-siswinya dalam aspek akademik dan motivasi.
+                        </p>
+                        <p class="text-gray-400" data-i18n="profile-body-2">
+                            Terbukti Alhamdulillah telah membantu ribuan siswa-siswinya mengatasi masalah belajar, berprestasi di sekolah dan diterima di sekolah/PTN favorit.
+                        </p>
+
+                        <h3 class="text-2xl font-semibold mt-8" data-i18n="vision-title">Visi</h3>
+                        <p class="text-gray-400" data-i18n="vision-body">
+                            Menjadi satu-satunya Bimbingan belajar terbesar yang membantu meningkatkan prestasi dan leadership siswa dengan fasilitas lengkap dan berbagai kemudahan
+                        </p>
+
+                        <h3 class="text-2xl font-semibold mt-6" data-i18n="mission-title">Misi</h3>
+                        <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                            <li data-i18n="mission-1">Mencetak siswa-siswi yang memiliki prestasi akademik unggul, cerdas, kreatif, inovatif, wawasan luas, dan memiliki jiwa kepemimpinan.</li>
+                            <li data-i18n="mission-2">Menyediakan sarana dan fasilitas belajar yang lengkap, nyaman, dan kemudahan guna menunjang aktifitas belajar yang efektif.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="order-1 md:order-2">
+                        <img src="profil.jpg" alt="Kantor Bimbingan Belajar dan Motivasi Brawijaya" class="w-full rounded-xl border img-frame shadow" loading="lazy" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,14 +356,14 @@
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="feature-card p-8 rounded-xl">
-                    <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-8 4h10M5 8h14M5 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3" data-i18n="feature-incident-title">Laporan Insiden</h3>
-                    <p class="text-gray-400 mb-4" data-i18n="feature-incident-desc">Laporkan insiden dan kondisi tidak aman dengan mudah. Tracking otomatis dan notifikasi real-time.</p>
-                    <a href="dashboard.html#materi-edukasi" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                    <h3 class="text-2xl font-bold mb-3" data-i18n="feature-policy-title">Kebijakan K3</h3>
+                    <p class="text-gray-400 mb-4" data-i18n="feature-policy-desc">Kebijakan keselamatan yang jelas sebagai panduan dan komitmen organisasi.</p>
+                    <a href="dashboard.html#kebijakan" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
                         <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -408,13 +486,14 @@
                     <h4 class="font-semibold mb-3" data-i18n="footer-platform">Platform</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="dashboard.html" class="hover:text-white transition" data-i18n="nav-dashboard">Dashboard</a></li>
-                        <li><a href="dashboard.html#materi-edukasi" class="hover:text-white transition" data-i18n="feature-incident-title">Lapor Insiden</a></li>
                         <li><a href="dashboard.html#materi-edukasi" class="hover:text-white transition" data-i18n="feature-education-title">Materi Edukasi</a></li>
+                            <li><a href="dashboard.html#kebijakan" class="hover:text-white transition" data-i18n="nav-policy">Kebijakan K3</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-3" data-i18n="footer-company">Perusahaan</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#profile" class="hover:text-white transition" data-i18n="footer-profile">Profil Perusahaan</a></li>
                         <li><a href="#" class="hover:text-white transition" data-i18n="footer-about">Tentang Kami</a></li>
                         <li><a href="#" class="hover:text-white transition" data-i18n="footer-career">Karir</a></li>
                         <li><a href="#" class="hover:text-white transition" data-i18n="footer-contact">Kontak</a></li>
@@ -439,12 +518,14 @@
         // Translations for Landing Page
         const translations = {
             id: {
+                'nav-profile': 'Profil',
                 'nav-features': 'Fitur',
+                'nav-policy': 'Kebijakan K3',
                 'nav-about': 'Tentang',
                 'nav-contact': 'Kontak',
                 'nav-dashboard': 'Dashboard',
                 // Hero Section
-                'hero-badge': 'Sistem K3 Terintegrasi untuk Institusi Pendidikan',
+                'hero-badge': 'Sistem K3 Bimbel Brawijaya',
                 'hero-title-1': 'Keselamatan kerja',
                 'hero-title-2': 'yang terkelola dengan baik',
                 'hero-desc': 'Platform modern untuk mengelola Kesehatan dan Keselamatan Kerja (K3) di lingkungan pendidikan. Mudah, aman, dan terintegrasi.',
@@ -457,8 +538,8 @@
                 'features-title': 'Fitur lengkap untuk',
                 'features-title-highlight': 'manajemen K3',
                 'features-subtitle': 'Semua yang Anda butuhkan untuk mengelola keselamatan kerja dalam satu platform',
-                'feature-incident-title': 'Laporan Insiden',
-                'feature-incident-desc': 'Laporkan insiden dan kondisi tidak aman dengan mudah. Tracking otomatis dan notifikasi real-time.',
+                'feature-policy-title': 'Kebijakan K3',
+                'feature-policy-desc': 'Kebijakan keselamatan yang jelas sebagai panduan dan komitmen organisasi.',
                 'feature-education-title': 'Materi Edukasi',
                 'feature-education-desc': 'Akses materi K3, prosedur darurat, dan kebijakan keselamatan dalam satu tempat.',
                 'feature-analytics-title': 'Analytics & Reporting',
@@ -476,11 +557,21 @@
                 'cta-subtitle': 'Bergabunglah dengan 50+ institusi pendidikan yang telah mempercayai platform kami.',
                 'cta-btn-start': 'Mulai Sekarang',
                 'cta-btn-contact': 'Hubungi Kami',
+                // Company Profile
+                'profile-title': 'Profil Perusahaan',
+                'profile-body-1': 'Bimbingan Belajar Dan Motivasi Brawijaya — berpengalaman selama 9 tahun dalam dunia bimbingan belajar dan memiliki 4 area cabang di Malang Raya. BM BRAWIJAYA adalah satu-satunya bimbingan belajar yang totalitas memberikan pendampingan siswa-siswinya dalam aspek akademik dan motivasi.',
+                'profile-body-2': 'Terbukti Alhamdulillah telah membantu ribuan siswa-siswinya mengatasi masalah belajar, berprestasi di sekolah dan diterima di sekolah/PTN favorit.',
+                'vision-title': 'Visi',
+                'vision-body': 'Menjadi satu-satunya Bimbingan belajar terbesar yang membantu meningkatkan prestasi dan leadership siswa dengan fasilitas lengkap dan berbagai kemudahan',
+                'mission-title': 'Misi',
+                'mission-1': 'Mencetak siswa-siswi yang memiliki prestasi akademik unggul, cerdas, kreatif, inovatif, wawasan luas, dan memiliki jiwa kepemimpinan.',
+                'mission-2': 'Menyediakan sarana dan fasilitas belajar yang lengkap, nyaman, dan kemudahan guna menunjang aktifitas belajar yang efektif.',
                 // Footer
                 'footer-tagline': 'Platform K3 terpercaya untuk institusi pendidikan di Indonesia.',
                 'footer-platform': 'Platform',
                 'footer-company': 'Perusahaan',
                 'footer-legal': 'Legal',
+                'footer-profile': 'Profil Perusahaan',
                 'footer-about': 'Tentang Kami',
                 'footer-career': 'Karir',
                 'footer-contact': 'Kontak',
@@ -490,7 +581,9 @@
                 'footer-copyright': '© 2025 Bimbel Brawijaya. All rights reserved.',
             },
             en: {
+                'nav-profile': 'Profile',
                 'nav-features': 'Features',
+                'nav-policy': 'K3 Policy',
                 'nav-about': 'About',
                 'nav-contact': 'Contact',
                 'nav-dashboard': 'Dashboard',
@@ -508,8 +601,8 @@
                 'features-title': 'Complete features for',
                 'features-title-highlight': 'K3 management',
                 'features-subtitle': 'Everything you need to manage workplace safety in one platform',
-                'feature-incident-title': 'Incident Reporting',
-                'feature-incident-desc': 'Report incidents and unsafe conditions easily. Automatic tracking and real-time notifications.',
+                'feature-policy-title': 'K3 Policy',
+                'feature-policy-desc': 'Clear safety policies as organizational guidelines and commitments.',
                 'feature-education-title': 'Educational Materials',
                 'feature-education-desc': 'Access K3 materials, emergency procedures, and safety policies in one place.',
                 'feature-analytics-title': 'Analytics & Reporting',
@@ -527,11 +620,21 @@
                 'cta-subtitle': 'Join 50+ educational institutions that trust our platform.',
                 'cta-btn-start': 'Get Started',
                 'cta-btn-contact': 'Contact Us',
+                // Company Profile
+                'profile-title': 'Company Profile',
+                'profile-body-1': 'Bimbingan Belajar Dan Motivasi Brawijaya — 9 years of experience in tutoring with 4 branches across Greater Malang. BM BRAWIJAYA is dedicated to fully supporting students in academics and motivation.',
+                'profile-body-2': 'Proven to have helped thousands of students overcome learning difficulties, achieve at school, and be accepted into top schools/universities.',
+                'vision-title': 'Vision',
+                'vision-body': 'To become the leading tutoring institution that enhances student achievement and leadership with complete facilities and various conveniences.',
+                'mission-title': 'Mission',
+                'mission-1': 'Develop students with outstanding academic performance who are smart, creative, innovative, broad-minded, and possess leadership.',
+                'mission-2': 'Provide complete, comfortable learning facilities and conveniences to support effective learning activities.',
                 // Footer
                 'footer-tagline': 'Trusted K3 platform for educational institutions in Indonesia.',
                 'footer-platform': 'Platform',
                 'footer-company': 'Company',
                 'footer-legal': 'Legal',
+                'footer-profile': 'Company Profile',
                 'footer-about': 'About Us',
                 'footer-career': 'Careers',
                 'footer-contact': 'Contact',
