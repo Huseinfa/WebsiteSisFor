@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,25 +11,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #0d1117;
             color: #fff;
             overflow-x: hidden;
         }
-        
+
         .hero-bg {
             background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93, 44, 50, 0.3), transparent),
-                        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.2), transparent);
+                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.2), transparent);
         }
-        
+
         .glass-nav {
             /* Brand red gradient to match dashboard sidebar */
             background: linear-gradient(90deg, #7f1d1d, #991b1b, #b91c1c);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
+
         /* Keep navbar readable across themes */
         .glass-nav .text-gray-300,
         .glass-nav .text-white,
@@ -40,76 +47,91 @@
             color: #ffffff !important;
             fill: #ffffff !important;
         }
+
         .glass-nav a:hover,
         .glass-nav button:hover {
             color: #ffffff !important;
         }
+
         .glass-nav a:focus-visible,
         .glass-nav button:focus-visible {
-            outline: 2px solid #FBBF24; /* amber-400 */
+            outline: 2px solid #FBBF24;
+            /* amber-400 */
             outline-offset: 2px;
         }
-        
+
         .gradient-text {
             background: linear-gradient(135deg, #fff 0%, #e0e0e0 50%, #c0c0c0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #5D2C32 0%, #4A1B1F 100%);
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(93, 44, 50, 0.3);
         }
+
         .btn-primary:hover {
             box-shadow: 0 0 30px rgba(93, 44, 50, 0.5);
             transform: translateY(-2px);
         }
-        
+
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
+
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
         }
-        
+
         .feature-card {
             background: rgba(22, 27, 34, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
+
         .feature-card:hover {
             background: rgba(22, 27, 34, 0.8);
             border-color: rgba(197, 154, 46, 0.3);
             transform: translateY(-4px);
         }
-        
+
         .glow {
             box-shadow: 0 0 60px rgba(197, 154, 46, 0.2);
         }
-        
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
+
         .stat-badge {
             animation: pulse 3s ease-in-out infinite;
         }
-        
+
         .code-block {
             background: #161b22;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 6px;
         }
-        
+
         /* Mobile Menu */
         .mobile-menu {
             display: none;
         }
+
         @media (max-width: 768px) {
             .mobile-menu {
                 display: flex;
@@ -126,9 +148,11 @@
                 z-index: 100;
                 border-left: 1px solid rgba(255, 255, 255, 0.1);
             }
+
             .mobile-menu.active {
                 right: 0;
             }
+
             .mobile-overlay {
                 display: none;
                 position: fixed;
@@ -136,16 +160,18 @@
                 background: rgba(0, 0, 0, 0.7);
                 z-index: 99;
             }
+
             .mobile-overlay.active {
                 display: block;
             }
         }
-        
+
         /* Light Mode */
         body.light-mode {
             background: #f6f8fa;
             color: #24292f;
         }
+
         /* Keep navbar brand gradient in light mode */
         body.light-mode .glass-nav {
             background: linear-gradient(90deg, #7f1d1d, #991b1b, #b91c1c);
@@ -165,68 +191,92 @@
             color: #ffffff !important;
             fill: #ffffff !important;
         }
+
         body.light-mode .hero-bg {
             background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93, 44, 50, 0.1), transparent),
-                        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.05), transparent);
+                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(61, 26, 64, 0.05), transparent);
         }
+
         body.light-mode .gradient-text {
             background: linear-gradient(135deg, #24292f 0%, #57606a 50%, #6e7781 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         body.light-mode .feature-card {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
+
         body.light-mode .feature-card:hover {
             background: #f6f8fa;
         }
+
         body.light-mode .code-block {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-        body.light-mode h1, body.light-mode h2, body.light-mode h3, 
-        body.light-mode h4, body.light-mode .text-white {
+
+        body.light-mode h1,
+        body.light-mode h2,
+        body.light-mode h3,
+        body.light-mode h4,
+        body.light-mode .text-white {
             color: #24292f !important;
         }
-        body.light-mode .text-gray-300, body.light-mode .text-gray-400 {
+
+        body.light-mode .text-gray-300,
+        body.light-mode .text-gray-400 {
             color: #57606a !important;
         }
+
         body.light-mode footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Keep primary CTA button text white in both themes */
-        .btn-primary { color: #ffffff !important; }
-        .btn-primary * { color: #ffffff !important; }
-        .btn-primary svg { color: #ffffff !important; }
+        .btn-primary {
+            color: #ffffff !important;
+        }
+
+        .btn-primary * {
+            color: #ffffff !important;
+        }
+
+        .btn-primary svg {
+            color: #ffffff !important;
+        }
     </style>
 </head>
+
 <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    
+
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <button class="self-end text-white mb-6" id="closeMobileMenu">
             <i class="fas fa-times text-2xl"></i>
         </button>
-    <a href="#features" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-features">Fitur</a>
-    <a href="#profile" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-profile">Profil</a>
+        <a href="#features" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-features">Fitur</a>
+        <a href="#profile" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-profile">Profil</a>
         <a href="#about" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-about">Tentang</a>
         <a href="#contact" class="text-white py-3 hover:text-amber-400 transition" data-i18n="nav-contact">Kontak</a>
-        <a href="dashboard.html" class="mt-4 px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition text-center" data-i18n="nav-dashboard">Dashboard</a>
+        <a href="dashboard.html" class="mt-4 px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition text-center"
+            data-i18n="nav-dashboard">Dashboard</a>
         <div class="mt-6 pt-6 border-t border-white/10 flex gap-2">
-            <button id="mobileThemeToggle" class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
+            <button id="mobileThemeToggle"
+                class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
                 <i class="fas fa-moon"></i>
             </button>
-            <button id="mobileLangToggle" class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
+            <button id="mobileLangToggle"
+                class="flex-1 py-2 px-3 text-sm text-white bg-white/10 hover:bg-white/15 rounded-lg transition">
                 <span id="mobileLangDisplay">ID</span>
             </button>
         </div>
     </div>
-    
+
     <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
@@ -235,17 +285,22 @@
                     <span class="text-xl font-semibold">Bimbel Brawijaya</span>
                 </div>
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="#features" class="text-gray-300 hover:text-white transition" data-i18n="nav-features">Fitur</a>
-                    <a href="#profile" class="text-gray-300 hover:text-white transition" data-i18n="nav-profile">Profil</a>
+                    <a href="#features" class="text-gray-300 hover:text-white transition"
+                        data-i18n="nav-features">Fitur</a>
+                    <a href="#profile" class="text-gray-300 hover:text-white transition"
+                        data-i18n="nav-profile">Profil</a>
                     <a href="#about" class="text-gray-300 hover:text-white transition" data-i18n="nav-about">Tentang</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition" data-i18n="nav-contact">Kontak</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition"
+                        data-i18n="nav-contact">Kontak</a>
                     <button id="themeToggle" class="p-2 text-gray-300 hover:text-white transition" title="Toggle Theme">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <button id="langToggle" class="px-3 py-2 text-gray-300 hover:text-white transition font-semibold" title="Change Language">
+                    <button id="langToggle" class="px-3 py-2 text-gray-300 hover:text-white transition font-semibold"
+                        title="Change Language">
                         <span id="langDisplay">ID</span>
                     </button>
-                    <a href="dashboard.html" class="px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition" data-i18n="nav-dashboard">Dashboard</a>
+                    <a href="dashboard.html" class="px-4 py-2 rounded-md bg-white/10 hover:bg-white/15 transition"
+                        data-i18n="nav-dashboard">Dashboard</a>
                 </div>
                 <button class="md:hidden text-white text-2xl" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
@@ -257,32 +312,41 @@
     <section class="hero-bg pt-32 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 stat-badge">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 stat-badge">
                     <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                    <span class="text-sm text-gray-300" data-i18n="hero-badge">Sistem K3 Terintegrasi untuk Institusi Pendidikan</span>
+                    <span class="text-sm text-gray-300" data-i18n="hero-badge">Sistem K3 Terintegrasi untuk Institusi
+                        Pendidikan</span>
                 </div>
 
                 <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-                    <span class="gradient-text" data-i18n="hero-title-1">Keselamatan kerja</span><br/>
+                    <span class="gradient-text" data-i18n="hero-title-1">Keselamatan kerja</span><br />
                     <span class="text-white" data-i18n="hero-title-2">yang terkelola dengan baik</span>
                 </h1>
 
-                <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto" data-i18n="hero-desc">
-                    Platform modern untuk mengelola Kesehatan dan Keselamatan Kerja (K3) di lingkungan pendidikan. 
+                <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto"
+                    data-i18n="hero-desc">
+                    Platform modern untuk mengelola Kesehatan dan Keselamatan Kerja (K3) di lingkungan pendidikan.
                     Mudah, aman, dan terintegrasi.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                    <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
+                    <a href="dashboard.html"
+                        class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                         <span data-i18n="hero-btn-primary">Buka Dashboard</span>
                     </a>
-                    <a href="#features" class="btn-secondary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
+                    <a href="#features"
+                        class="btn-secondary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3 text-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                            </path>
                         </svg>
                         <span data-i18n="hero-btn-secondary">Lihat Demo</span>
                     </a>
@@ -320,53 +384,120 @@
                     <!-- Text content -->
                     <div class="space-y-4 order-2 md:order-1">
                         <p class="text-gray-400" data-i18n="profile-body-1">
-                            Bimbingan Belajar Dan Motivasi Brawijaya — berpengalaman selama 9 tahun dalam dunia bimbingan belajar dan memiliki 4 area cabang di Malang Raya. BM BRAWIJAYA adalah satu-satunya bimbingan belajar yang totalitas memberikan pendampingan siswa-siswinya dalam aspek akademik dan motivasi.
+                            Bimbingan Belajar Dan Motivasi Brawijaya — berpengalaman selama 9 tahun dalam dunia
+                            bimbingan belajar dan memiliki 4 area cabang di Malang Raya. BM BRAWIJAYA adalah
+                            satu-satunya bimbingan belajar yang totalitas memberikan pendampingan siswa-siswinya dalam
+                            aspek akademik dan motivasi.
                         </p>
                         <p class="text-gray-400" data-i18n="profile-body-2">
-                            Terbukti Alhamdulillah telah membantu ribuan siswa-siswinya mengatasi masalah belajar, berprestasi di sekolah dan diterima di sekolah/PTN favorit.
+                            Terbukti Alhamdulillah telah membantu ribuan siswa-siswinya mengatasi masalah belajar,
+                            berprestasi di sekolah dan diterima di sekolah/PTN favorit.
                         </p>
 
                         <h3 class="text-2xl font-semibold mt-8" data-i18n="vision-title">Visi</h3>
                         <p class="text-gray-400" data-i18n="vision-body">
-                            Menjadi satu-satunya Bimbingan belajar terbesar yang membantu meningkatkan prestasi dan leadership siswa dengan fasilitas lengkap dan berbagai kemudahan
+                            Menjadi satu-satunya Bimbingan belajar terbesar yang membantu meningkatkan prestasi dan
+                            leadership siswa dengan fasilitas lengkap dan berbagai kemudahan
                         </p>
 
                         <h3 class="text-2xl font-semibold mt-6" data-i18n="mission-title">Misi</h3>
                         <ul class="list-disc pl-6 text-gray-400 space-y-2">
-                            <li data-i18n="mission-1">Mencetak siswa-siswi yang memiliki prestasi akademik unggul, cerdas, kreatif, inovatif, wawasan luas, dan memiliki jiwa kepemimpinan.</li>
-                            <li data-i18n="mission-2">Menyediakan sarana dan fasilitas belajar yang lengkap, nyaman, dan kemudahan guna menunjang aktifitas belajar yang efektif.</li>
+                            <li data-i18n="mission-1">Mencetak siswa-siswi yang memiliki prestasi akademik unggul,
+                                cerdas, kreatif, inovatif, wawasan luas, dan memiliki jiwa kepemimpinan.</li>
+                            <li data-i18n="mission-2">Menyediakan sarana dan fasilitas belajar yang lengkap, nyaman, dan
+                                kemudahan guna menunjang aktifitas belajar yang efektif.</li>
                         </ul>
                     </div>
 
                     <!-- Image -->
                     <div class="order-1 md:order-2">
-                        <img src="profil.jpg" alt="Kantor Bimbingan Belajar dan Motivasi Brawijaya" class="w-full rounded-xl border img-frame shadow" loading="lazy" />
+                        <img src="profil.jpg" alt="Kantor Bimbingan Belajar dan Motivasi Brawijaya"
+                            class="w-full rounded-xl border img-frame shadow" loading="lazy" />
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Audit SMK3 Section -->
+    <section id="audit" class="py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span data-i18n="audit-title">Audit SMK3</span>
+                    <span class="text-amber-400" data-i18n="audit-title-highlight">Bimbel Brawijaya</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto" data-i18n="audit-subtitle">
+                    Hasil audit SMK3 di Bimbel Brawijaya Malang menunjukkan komitmen kami terhadap standar keselamatan
+                    dan kesehatan kerja yang tinggi.
+                </p>
+            </div>
+
+            <a href="https://docs.google.com/document/d/1WV5Wyt1erVR_G8DFb5gexQa-qHqTzs8TrB5X-xNiPGY/edit?pli=1&tab=t.0"
+                target="_blank" rel="noopener noreferrer"
+                class="block feature-card p-6 rounded-xl cursor-pointer group transition-all duration-300 hover:scale-[1.02]">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1 order-2 md:order-1">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                            <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span data-i18n="audit-card-title">Checklist Penerapan SMK3</span>
+                        </h3>
+                        <p class="text-gray-400 mb-4" data-i18n="audit-card-desc">
+                            Lihat detail hasil audit dan checklist penerapan Sistem Manajemen Keselamatan dan Kesehatan
+                            Kerja (SMK3) di Bimbel Brawijaya Malang (PP No. 50 2012).
+                        </p>
+                        <div
+                            class="inline-flex items-center gap-2 text-amber-400 font-medium group-hover:gap-3 transition-all">
+                            <span data-i18n="audit-card-cta">Lihat Detail Audit</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex-1 order-1 md:order-2">
+                        <div
+                            class="rounded-lg overflow-hidden border border-white/10 shadow-lg group-hover:shadow-amber-400/20 transition-all">
+                            <img src="audit-checklist.png" alt="Audit SMK3 Checklist Bimbel Brawijaya"
+                                class="w-full h-auto" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
     <section id="features" class="py-20 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4"><span data-i18n="features-title">Fitur lengkap untuk</span> <span class="text-amber-400" data-i18n="features-title-highlight">manajemen K3</span></h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-i18n="features-subtitle">Semua yang Anda butuhkan untuk mengelola keselamatan kerja dalam satu platform</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4"><span data-i18n="features-title">Fitur lengkap
+                        untuk</span> <span class="text-amber-400" data-i18n="features-title-highlight">manajemen
+                        K3</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto" data-i18n="features-subtitle">Semua yang Anda
+                    butuhkan untuk mengelola keselamatan kerja dalam satu platform</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="feature-card p-8 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-6">
                         <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-8 4h10M5 8h14M5 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-8 4h10M5 8h14M5 6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6z" />
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold mb-3" data-i18n="feature-policy-title">Kebijakan K3</h3>
-                    <p class="text-gray-400 mb-4" data-i18n="feature-policy-desc">Kebijakan keselamatan yang jelas sebagai panduan dan komitmen organisasi.</p>
-                    <a href="dashboard.html#kebijakan" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                    <p class="text-gray-400 mb-4" data-i18n="feature-policy-desc">Kebijakan keselamatan yang jelas
+                        sebagai panduan dan komitmen organisasi.</p>
+                    <a href="dashboard.html#kebijakan"
+                        class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
                         <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
                         </svg>
                     </a>
                 </div>
@@ -374,15 +505,20 @@
                 <div class="feature-card p-8 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-6">
                         <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold mb-3" data-i18n="feature-education-title">Materi Edukasi</h3>
-                    <p class="text-gray-400 mb-4" data-i18n="feature-education-desc">Akses materi K3, prosedur darurat, dan kebijakan keselamatan dalam satu tempat.</p>
-                    <a href="dashboard.html#materi-edukasi" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                    <p class="text-gray-400 mb-4" data-i18n="feature-education-desc">Akses materi K3, prosedur darurat,
+                        dan kebijakan keselamatan dalam satu tempat.</p>
+                    <a href="dashboard.html#materi-edukasi"
+                        class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
                         <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
                         </svg>
                     </a>
                 </div>
@@ -390,15 +526,20 @@
                 <div class="feature-card p-8 rounded-xl">
                     <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6">
                         <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold mb-3" data-i18n="feature-analytics-title">Analytics & Reporting</h3>
-                    <p class="text-gray-400 mb-4" data-i18n="feature-analytics-desc">Dashboard analitik komprehensif untuk monitoring keselamatan dan compliance.</p>
-                    <a href="dashboard.html" class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
+                    <p class="text-gray-400 mb-4" data-i18n="feature-analytics-desc">Dashboard analitik komprehensif
+                        untuk monitoring keselamatan dan compliance.</p>
+                    <a href="dashboard.html"
+                        class="text-amber-400 hover:text-amber-300 font-medium inline-flex items-center gap-2">
                         <span data-i18n="feature-learn-more">Pelajari lebih lanjut</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
                         </svg>
                     </a>
                 </div>
@@ -412,27 +553,36 @@
                 <div>
                     <h2 class="text-4xl font-bold mb-6" data-i18n="quick-access-title">Akses cepat dan mudah</h2>
                     <p class="text-xl text-gray-400 mb-6" data-i18n="quick-access-desc">
-                        Interface yang intuitif membuat manajemen K3 menjadi sederhana. 
+                        Interface yang intuitif membuat manajemen K3 menjadi sederhana.
                         Tidak perlu training berbulan-bulan.
                     </p>
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span class="text-gray-300" data-i18n="quick-access-1">Dashboard real-time untuk monitoring</span>
+                            <span class="text-gray-300" data-i18n="quick-access-1">Dashboard real-time untuk
+                                monitoring</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span class="text-gray-300" data-i18n="quick-access-2">Formulir digital untuk semua proses</span>
+                            <span class="text-gray-300" data-i18n="quick-access-2">Formulir digital untuk semua
+                                proses</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <svg class="w-6 h-6 text-amber-400 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
-                            <span class="text-gray-300" data-i18n="quick-access-3">Notifikasi otomatis via email & SMS</span>
+                            <span class="text-gray-300" data-i18n="quick-access-3">Notifikasi otomatis via email &
+                                SMS</span>
                         </li>
                     </ul>
                 </div>
@@ -456,13 +606,17 @@
 
     <section id="about" class="py-20 px-6">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6"><span data-i18n="cta-title-1">Siap untuk meningkatkan</span> <span class="text-amber-400" data-i18n="cta-title-2">keselamatan kerja</span>?</h2>
-            <p class="text-xl text-gray-400 mb-10" data-i18n="cta-subtitle">Bergabunglah dengan 50+ institusi pendidikan yang telah mempercayai platform kami.</p>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6"><span data-i18n="cta-title-1">Siap untuk meningkatkan</span>
+                <span class="text-amber-400" data-i18n="cta-title-2">keselamatan kerja</span>?</h2>
+            <p class="text-xl text-gray-400 mb-10" data-i18n="cta-subtitle">Bergabunglah dengan 50+ institusi pendidikan
+                yang telah mempercayai platform kami.</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="dashboard.html" class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3">
+                <a href="dashboard.html"
+                    class="btn-primary px-8 py-4 rounded-lg text-white font-semibold inline-flex items-center gap-3">
                     <span data-i18n="cta-btn-start">Mulai Sekarang</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
                 </a>
                 <a href="#contact" class="btn-secondary px-8 py-4 rounded-lg text-white font-semibold">
@@ -480,21 +634,27 @@
                         <img src="logo.svg" alt="Bimbel Brawijaya" class="w-8 h-8">
                         <span class="font-semibold">Bimbel Brawijaya</span>
                     </div>
-                    <p class="text-sm text-gray-400" data-i18n="footer-tagline">Platform K3 terpercaya untuk institusi pendidikan di Indonesia.</p>
+                    <p class="text-sm text-gray-400" data-i18n="footer-tagline">Platform K3 terpercaya untuk institusi
+                        pendidikan di Indonesia.</p>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-3" data-i18n="footer-platform">Platform</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="dashboard.html" class="hover:text-white transition" data-i18n="nav-dashboard">Dashboard</a></li>
-                        <li><a href="dashboard.html#materi-edukasi" class="hover:text-white transition" data-i18n="feature-education-title">Materi Edukasi</a></li>
-                            <li><a href="dashboard.html#kebijakan" class="hover:text-white transition" data-i18n="nav-policy">Kebijakan K3</a></li>
+                        <li><a href="dashboard.html" class="hover:text-white transition"
+                                data-i18n="nav-dashboard">Dashboard</a></li>
+                        <li><a href="dashboard.html#materi-edukasi" class="hover:text-white transition"
+                                data-i18n="feature-education-title">Materi Edukasi</a></li>
+                        <li><a href="dashboard.html#kebijakan" class="hover:text-white transition"
+                                data-i18n="nav-policy">Kebijakan K3</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-3" data-i18n="footer-company">Perusahaan</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#profile" class="hover:text-white transition" data-i18n="footer-profile">Profil Perusahaan</a></li>
-                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-about">Tentang Kami</a></li>
+                        <li><a href="#profile" class="hover:text-white transition" data-i18n="footer-profile">Profil
+                                Perusahaan</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-about">Tentang Kami</a>
+                        </li>
                         <li><a href="#" class="hover:text-white transition" data-i18n="footer-career">Karir</a></li>
                         <li><a href="#" class="hover:text-white transition" data-i18n="footer-contact">Kontak</a></li>
                     </ul>
@@ -502,9 +662,12 @@
                 <div>
                     <h4 class="font-semibold mb-3" data-i18n="footer-legal">Legal</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-privacy">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-terms">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-security">Security</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-privacy">Privacy
+                                Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-terms">Terms of
+                                Service</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-i18n="footer-security">Security</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -579,6 +742,13 @@
                 'footer-terms': 'Terms of Service',
                 'footer-security': 'Security',
                 'footer-copyright': '© 2025 Bimbel Brawijaya. All rights reserved.',
+                // Audit Section
+                'audit-title': 'Audit SMK3',
+                'audit-title-highlight': 'Bimbel Brawijaya',
+                'audit-subtitle': 'Hasil audit SMK3 di Bimbel Brawijaya Malang menunjukkan komitmen kami terhadap standar keselamatan dan kesehatan kerja yang tinggi.',
+                'audit-card-title': 'Checklist Penerapan SMK3',
+                'audit-card-desc': 'Lihat detail hasil audit dan checklist penerapan Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3) di Bimbel Brawijaya Malang (PP No. 50 2012).',
+                'audit-card-cta': 'Lihat Detail Audit',
             },
             en: {
                 'nav-profile': 'Profile',
@@ -642,24 +812,31 @@
                 'footer-terms': 'Terms of Service',
                 'footer-security': 'Security',
                 'footer-copyright': '© 2025 Bimbel Brawijaya. All rights reserved.',
+                // Audit Section
+                'audit-title': 'SMK3 Audit',
+                'audit-title-highlight': 'Bimbel Brawijaya',
+                'audit-subtitle': 'SMK3 audit results at Bimbel Brawijaya Malang demonstrate our commitment to high occupational health and safety standards.',
+                'audit-card-title': 'SMK3 Implementation Checklist',
+                'audit-card-desc': 'View detailed audit results and implementation checklist of the Occupational Health and Safety Management System (SMK3) at Bimbel Brawijaya Malang (PP No. 50 2012).',
+                'audit-card-cta': 'View Audit Details',
             }
         };
-        
+
         // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const closeMobileMenu = document.getElementById('closeMobileMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileOverlay = document.getElementById('mobileOverlay');
-        
+
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('active');
             mobileOverlay.classList.toggle('active');
         }
-        
+
         if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         if (closeMobileMenu) closeMobileMenu.addEventListener('click', toggleMobileMenu);
         if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
-        
+
         // Close mobile menu when clicking a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -668,16 +845,16 @@
                 }
             });
         });
-        
+
         // Theme Toggle
         function getSystemTheme() {
             return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
-        
+
         function setTheme(theme) {
             const themeToggle = document.getElementById('themeToggle');
             const mobileThemeToggle = document.getElementById('mobileThemeToggle');
-            
+
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
                 if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -689,28 +866,28 @@
             }
             localStorage.setItem('theme', theme);
         }
-        
+
         function toggleTheme() {
             const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
             setTheme(currentTheme === 'light' ? 'dark' : 'light');
         }
-        
+
         // Initialize theme
         const savedTheme = localStorage.getItem('theme') || getSystemTheme();
         setTheme(savedTheme);
-        
+
         const themeToggle = document.getElementById('themeToggle');
         const mobileThemeToggle = document.getElementById('mobileThemeToggle');
         if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
         if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
-        
+
         // Watch for system theme changes
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
                 setTheme(e.matches ? 'light' : 'dark');
             }
         });
-        
+
         // Language Toggle
         function setLanguage(lang) {
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -719,30 +896,30 @@
                     element.textContent = translations[lang][key];
                 }
             });
-            
+
             const langDisplay = document.getElementById('langDisplay');
             const mobileLangDisplay = document.getElementById('mobileLangDisplay');
             if (langDisplay) langDisplay.textContent = lang.toUpperCase();
             if (mobileLangDisplay) mobileLangDisplay.textContent = lang.toUpperCase();
-            
+
             localStorage.setItem('language', lang);
         }
-        
+
         function toggleLanguage() {
             const currentLang = localStorage.getItem('language') || 'id';
             const newLang = currentLang === 'id' ? 'en' : 'id';
             setLanguage(newLang);
         }
-        
+
         // Initialize language
         const savedLang = localStorage.getItem('language') || 'id';
         setLanguage(savedLang);
-        
+
         const langToggle = document.getElementById('langToggle');
         const mobileLangToggle = document.getElementById('mobileLangToggle');
         if (langToggle) langToggle.addEventListener('click', toggleLanguage);
         if (mobileLangToggle) mobileLangToggle.addEventListener('click', toggleLanguage);
-        
+
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -758,4 +935,5 @@
         });
     </script>
 </body>
+
 </html>
