@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Risiko K3 - Bimbel Brawijaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            background: #0d1117;
+            color: #e6edf3;
+        }
+        body.light-mode {
+            background: #f6f8fa;
+            color: #24292f;
+        }
+        .dark-card {
+            background: rgba(22, 27, 34, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        body.light-mode .dark-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode h1, body.light-mode h2, body.light-mode h3 {
+            color: #24292f !important;
+        }
+        body.light-mode .text-gray-300, body.light-mode .text-gray-400 {
+            color: #57606a !important;
+        }
+        .btn-back {
+            background: linear-gradient(135deg, #5D2C32 0%, #4A1B1F 100%);
+            box-shadow: 0 0 20px rgba(93, 44, 50, 0.3);
+        }
+        .btn-back:hover {
+            box-shadow: 0 0 30px rgba(93, 44, 50, 0.5);
+            transform: translateY(-2px);
+        }
+        .section-explanation {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .risk-cell {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .low-risk { background: rgba(34, 197, 94, 0.2); border: 1px solid rgba(34, 197, 94, 0.5); }
+        .medium-risk { background: rgba(234, 179, 8, 0.2); border: 1px solid rgba(234, 179, 8, 0.5); }
+        .high-risk { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.5); }
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body.light-mode th, body.light-mode td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+        body.light-mode th {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        body.light-mode tr:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+        .competency-box {
+            background: rgba(147, 51, 234, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(59, 130, 246, 0.8);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .scroll-top:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="p-6 md:p-8 max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2" data-i18n="title">Manajemen Risiko K3</h1>
+                <p class="text-gray-400" data-i18n="subtitle">Bimbel Brawijaya - Panduan Lengkap untuk Mahasiswa</p>
+            </div>
+            <div class="flex gap-3">
+                <button id="themeToggle" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition">
+                    <i class="fas fa-moon text-gray-400"></i>
+                </button>
+                <button id="langToggle" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition font-semibold text-gray-400">
+                    <span id="langDisplay">ID</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Ringkasan Kompetensi -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">📋 RINGKASAN KOMPETENSI UNTUK MAHASISWA</h2>
+            <div class="competency-box">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-400 mb-2">1</div>
+                        <h3 class="font-bold text-white mb-1">Identifikasi Bahaya</h3>
+                        <p class="text-gray-400 text-sm">Mengenali potensi bahaya</p>
+                        <p class="text-gray-300 text-xs mt-2">Output: Daftar hazard</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400 mb-2">2</div>
+                        <h3 class="font-bold text-white mb-1">Penilaian Risiko</h3>
+                        <p class="text-gray-400 text-sm">Mengukur likelihood & severity</p>
+                        <p class="text-gray-300 text-xs mt-2">Output: Matriks risiko</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">3</div>
+                        <h3 class="font-bold text-white mb-1">Pengendalian Risiko</h3>
+                        <p class="text-gray-400 text-sm">Menyusun tindakan eliminasi → APD</p>
+                        <p class="text-gray-300 text-xs mt-2">Output: Rekomendasi pengendalian</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-400 mb-2">4</div>
+                        <h3 class="font-bold text-white mb-1">Monitoring & Review</h3>
+                        <p class="text-gray-400 text-sm">Mengevaluasi efektivitas</p>
+                        <p class="text-gray-300 text-xs mt-2">Output: Form inspeksi + laporan review</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAB 1: Identifikasi Potensi Sumber Bahaya -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">1️⃣ IDENTIFIKASI POTENSI SUMBER BAHAYA (HAZARD IDENTIFICATION)</h2>
+            
+            <div class="section-explanation">
+                <p class="text-gray-300">
+                    <strong>Kompetensi yang harus dicapai:</strong> Mahasiswa harus mampu mengidentifikasi seluruh bahaya di lingkungan kerja bimbel
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                <!-- Bahaya Fisik -->
+                <div class="p-4 rounded-lg bg-white/5 border border-white/10">
+                    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-yellow-500"></i>
+                        <span>A. Bahaya Fisik</span>
+                    </h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>• <strong>Kabel listrik berserakan</strong> → risiko tersandung atau kesetrum</li>
+                        <li>• <strong>AC/lampu bermasalah</strong> → korsleting</li>
+                        <li>• <strong>Lantai licin (kantin, toilet)</strong> → terpeleset</li>
+                        <li>• <strong>Ruang kelas penuh</strong> → evakuasi terhambat</li>
+                        <li>• <strong>Tangga tanpa pegangan</strong> → jatuh</li>
+                    </ul>
+                </div>
+
+                <!-- Bahaya Kebakaran -->
+                <div class="p-4 rounded-lg bg-white/5 border border-white/10">
+                    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fas fa-fire text-red-500"></i>
+                        <span>B. Bahaya Kebakaran</span>
+                    </h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>• <strong>Stop kontak overload</strong></li>
+                        <li>• <strong>Charger murahan, colokan bertumpuk</strong></li>
+                        <li>• <strong>Kertas dan bahan mudah terbakar</strong> dekat sumber panas</li>
+                    </ul>
+                </div>
+
+                <!-- Bahaya Ergonomi -->
+                <div class="p-4 rounded-lg bg-white/5 border border-white/10">
+                    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fas fa-chair text-blue-500"></i>
+                        <span>C. Bahaya Ergonomi</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2">(untuk tutor & admin)</p>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>• <strong>Kursi tidak ergonomis</strong> → nyeri punggung</li>
+                        <li>• <strong>Penggunaan komputer lama</strong> → kelelahan mata</li>
+                    </ul>
+                </div>
+
+                <!-- Bahaya Psikologis -->
+                <div class="p-4 rounded-lg bg-white/5 border border-white/10">
+                    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fas fa-brain text-purple-500"></i>
+                        <span>D. Bahaya Psikologis</span>
+                    </h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>• <strong>Jam mengajar padat</strong> → stres kerja</li>
+                        <li>• <strong>Lingkungan ramai</strong> → kebisingan mengganggu</li>
+                    </ul>
+                </div>
+
+                <!-- Bahaya Biologis -->
+                <div class="p-4 rounded-lg bg-white/5 border border-white/10">
+                    <h3 class="font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fas fa-virus text-green-500"></i>
+                        <span>E. Bahaya Biologis</span>
+                    </h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>• <strong>Penyebaran virus (flu, ISPA)</strong> di kelas tertutup</li>
+                        <li>• <strong>Kebersihan ruang kurang terjaga</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Catatan Penting -->
+                <div class="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                    <h3 class="font-bold text-yellow-400 mb-2 flex items-center gap-2">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Catatan Penting</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm">
+                        Identifikasi harus dilakukan secara <strong>sistematis dan menyeluruh</strong> di semua area bimbel. Gunakan checklist untuk memastikan tidak ada bahaya yang terlewat.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAB 2: Menilai Risiko -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">2️⃣ MENILAI RISIKO (RISK ASSESSMENT)</h2>
+            
+            <div class="section-explanation">
+                <p class="text-gray-300">
+                    <strong>Kompetensi yang harus dicapai:</strong> Mahasiswa harus dapat menganalisis risiko berdasarkan dua komponen: Likelihood (Kemungkinan) dan Severity (Keparahan)
+                </p>
+            </div>
+
+            <!-- Skala Penilaian -->
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Likelihood -->
+                <div class="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                    <h3 class="font-bold text-white mb-3">A. Likelihood (Kemungkinan Terjadi)</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">1 = <strong>Jarang</strong></span>
+                            <span class="px-3 py-1 bg-blue-500/30 text-blue-300 rounded text-sm">Low</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">2 = <strong>Kadang</strong></span>
+                            <span class="px-3 py-1 bg-yellow-500/30 text-yellow-300 rounded text-sm">Medium</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">3 = <strong>Sering</strong></span>
+                            <span class="px-3 py-1 bg-red-500/30 text-red-300 rounded text-sm">High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Severity -->
+                <div class="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+                    <h3 class="font-bold text-white mb-3">B. Severity (Tingkat Keparahan Dampak)</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">1 = <strong>Ringan</strong> (lecet, terpeleset ringan)</span>
+                            <span class="px-3 py-1 bg-green-500/30 text-green-300 rounded text-sm">Low</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">2 = <strong>Sedang</strong> (patah ringan, luka sedang)</span>
+                            <span class="px-3 py-1 bg-yellow-500/30 text-yellow-300 rounded text-sm">Medium</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-white/5 rounded">
+                            <span class="text-gray-300">3 = <strong>Berat</strong> (kebakaran, keracunan, cedera berat)</span>
+                            <span class="px-3 py-1 bg-red-500/30 text-red-300 rounded text-sm">High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formula -->
+            <div class="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30 my-6">
+                <p class="font-mono font-bold text-center text-purple-400 text-xl">
+                    RISIKO = LIKELIHOOD × SEVERITY
+                </p>
+            </div>
+
+            <!-- Matriks Risiko -->
+            <h3 class="font-bold text-white mb-3">D. Matriks Risiko</h3>
+            <div class="risk-matrix">
+                <div class="risk-cell"></div>
+                <div class="risk-cell"><strong>Severity 1</strong><br>Ringan</div>
+                <div class="risk-cell"><strong>Severity 2</strong><br>Sedang</div>
+                <div class="risk-cell"><strong>Severity 3</strong><br>Berat</div>
+                
+                <div class="risk-cell"><strong>Likelihood 1</strong><br>Jarang</div>
+                <div class="risk-cell low-risk">1<br>Rendah</div>
+                <div class="risk-cell low-risk">2<br>Rendah</div>
+                <div class="risk-cell medium-risk">3<br>Sedang</div>
+                
+                <div class="risk-cell"><strong>Likelihood 2</strong><br>Kadang</div>
+                <div class="risk-cell low-risk">2<br>Rendah</div>
+                <div class="risk-cell medium-risk">4<br>Sedang</div>
+                <div class="risk-cell high-risk">6<br>Tinggi</div>
+                
+                <div class="risk-cell"><strong>Likelihood 3</strong><br>Sering</div>
+                <div class="risk-cell medium-risk">3<br>Sedang</div>
+                <div class="risk-cell high-risk">6<br>Tinggi</div>
+                <div class="risk-cell high-risk">9<br>Tinggi</div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mt-4">
+                <div class="p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                    <h4 class="font-bold text-green-400 mb-2">Rendah (1-2)</h4>
+                    <p class="text-gray-400 text-sm">Cukup edukasi dan monitoring</p>
+                </div>
+                <div class="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                    <h4 class="font-bold text-yellow-400 mb-2">Sedang (3-4)</h4>
+                    <p class="text-gray-400 text-sm">Perlu tindakan pengendalian</p>
+                </div>
+                <div class="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+                    <h4 class="font-bold text-red-400 mb-2">Tinggi (6-9)</h4>
+                    <p class="text-gray-400 text-sm">Wajib tindakan segera</p>
+                </div>
+            </div>
+
+            <!-- Contoh Penilaian -->
+            <h3 class="font-bold text-white mt-6 mb-3">C. Contoh Penilaian Risiko</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hazard</th>
+                            <th>Risiko</th>
+                            <th>L</th>
+                            <th>S</th>
+                            <th>Level Risiko</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kabel listrik berserakan</td>
+                            <td>Tersandung/kesetrum</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td><span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-sm">6 (Tinggi)</span></td>
+                            <td>Harus segera ditangani</td>
+                        </tr>
+                        <tr>
+                            <td>Stop kontak overload</td>
+                            <td>Kebakaran</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td><span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-sm">6 (Tinggi)</span></td>
+                            <td>Risiko kebakaran tinggi</td>
+                        </tr>
+                        <tr>
+                            <td>Lantai licin</td>
+                            <td>Terpeleset</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td><span class="px-2 py-1 bg-yellow-500/30 text-yellow-300 rounded text-sm">3 (Sedang)</span></td>
+                            <td>Memerlukan pengawasan</td>
+                        </tr>
+                        <tr>
+                            <td>Ventilasi buruk</td>
+                            <td>Kesehatan menurun</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td><span class="px-2 py-1 bg-yellow-500/30 text-yellow-300 rounded text-sm">4 (Sedang)</span></td>
+                            <td>Menurunkan kualitas kesehatan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- BAB 3: Pengendalian Risiko -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">3️⃣ MENGAMBIL TINDAKAN PENGENDALIAN RISIKO (RISK CONTROL)</h2>
+            
+            <div class="section-explanation">
+                <p class="text-gray-300">
+                    <strong>Kompetensi yang harus dicapai:</strong> Mahasiswa diharuskan tahu urutan langkah pengendalian sesuai Hierarki K3 (dari yang paling efektif)
+                </p>
+            </div>
+
+            <div class="space-y-4 mt-6">
+                <!-- Eliminasi -->
+                <div class="p-4 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-white font-bold text-lg">1</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-white mb-2 text-lg">A. Eliminasi (menghilangkan bahaya)</h4>
+                        <ul class="text-gray-400 space-y-1">
+                            <li>• <strong>Menghilangkan kabel berserakan</strong> → pasang ducting</li>
+                            <li>• <strong>Menghapus barang</strong> yang menutup jalur evakuasi</li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2"><strong>Efektivitas:</strong> Sangat tinggi - menghilangkan sumber bahaya sepenuhnya</p>
+                    </div>
+                </div>
+
+                <!-- Substitusi -->
+                <div class="p-4 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white font-bold text-lg">2</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-white mb-2 text-lg">B. Substitusi (mengganti sumber bahaya)</h4>
+                        <ul class="text-gray-400 space-y-1">
+                            <li>• <strong>Mengganti steker murahan</strong> dengan produk SNI</li>
+                            <li>• <strong>Mengganti bahan pembersih</strong> yang bau tajam dengan yang ramah lingkungan</li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2"><strong>Efektivitas:</strong> Tinggi - mengganti dengan alternatif lebih aman</p>
+                    </div>
+                </div>
+
+                <!-- Engineering Control -->
+                <div class="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-700 flex items-center justify-center text-white font-bold text-lg">3</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-white mb-2 text-lg">C. Engineering Control (rekayasa teknis)</h4>
+                        <ul class="text-gray-400 space-y-1">
+                            <li>• <strong>Pemasangan APAR</strong> di setiap lantai</li>
+                            <li>• <strong>Ventilasi tambahan</strong> di ruang kelas</li>
+                            <li>• <strong>Penutup kabel</strong> (cable duct protector)</li>
+                            <li>• <strong>Pemasangan rambu evakuasi</strong></li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2"><strong>Efektivitas:</strong> Sedang-Tinggi - mengisolasi orang dari bahaya</p>
+                    </div>
+                </div>
+
+                <!-- Administrative Control -->
+                <div class="p-4 rounded-lg bg-green-500/10 border border-green-500/30 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white font-bold text-lg">4</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-white mb-2 text-lg">D. Administrative Control (prosedur & aturan)</h4>
+                        <ul class="text-gray-400 space-y-1">
+                            <li>• <strong>SOP ruang kelas</strong></li>
+                            <li>• <strong>SOP evakuasi</strong></li>
+                            <li>• <strong>Jadwal inspeksi</strong> alat listrik</li>
+                            <li>• <strong>Pelatihan K3</strong> untuk tutor dan admin</li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2"><strong>Efektivitas:</strong> Sedang - mengubah cara kerja orang</p>
+                    </div>
+                </div>
+
+                <!-- APD -->
+                <div class="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold text-lg">5</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-white mb-2 text-lg">E. Alat Pelindung Diri (APD)</h4>
+                        <p class="text-gray-400 mb-2">Untuk bimbel biasanya minimal:</p>
+                        <ul class="text-gray-400 space-y-1">
+                            <li>• <strong>Sarung tangan</strong> petugas kebersihan</li>
+                            <li>• <strong>Masker</strong> untuk kondisi tertentu</li>
+                            <li>• <strong>Kotak P3K</strong> untuk tutor</li>
+                        </ul>
+                        <p class="text-gray-300 text-sm mt-2"><strong>Efektivitas:</strong> Rendah - melindungi individu, bukan menghilangkan bahaya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAB 4: Pemantauan & Review -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">4️⃣ PEMANTAUAN & REVIEW TINDAKAN PENGENDALIAN</h2>
+            
+            <div class="section-explanation">
+                <p class="text-gray-300">
+                    <strong>Kompetensi yang harus dicapai:</strong> Mahasiswa harus mampu memantau apakah pengendalian yang dilakukan efektif atau tidak
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Cara Memantau -->
+                <div class="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
+                    <h3 class="font-bold text-white mb-3">A. Cara Memantau</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• <strong>Check list inspeksi mingguan</strong> (APAR, listrik, kebersihan, ventilasi)</li>
+                        <li>• <strong>Laporan near-miss</strong> (kejadian hampir celaka)</li>
+                        <li>• <strong>Rekap kecelakaan kecil</strong> (misal siswa terpeleset)</li>
+                        <li>• <strong>Pengawasan tutor & admin</strong> di kelas</li>
+                    </ul>
+                </div>
+
+                <!-- Parameter Efektivitas -->
+                <div class="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                    <h3 class="font-bold text-white mb-3">B. Parameter Efektivitas</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• <strong>Tidak ada kecelakaan</strong> terkait risiko tersebut</li>
+                        <li>• <strong>Penggunaan SOP meningkat</strong></li>
+                        <li>• <strong>Fasilitas tetap aman</strong> (kabel rapi, ventilasi baik)</li>
+                    </ul>
+                </div>
+
+                <!-- Review Berkala -->
+                <div class="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 md:col-span-2">
+                    <h3 class="font-bold text-white mb-3">C. Review Berkala</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-amber-400 mb-1">Bulanan</div>
+                            <p class="text-gray-300 text-sm">Safety Officer & admin</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-orange-400 mb-1">Triwulanan</div>
+                            <p class="text-gray-300 text-sm">Kepala cabang</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-400 mb-1">Semester</div>
+                            <p class="text-gray-300 text-sm">Tinjauan manajemen</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-purple-400 mb-1">Jika tidak efektif</div>
+                            <p class="text-gray-300 text-sm">Revisi SOP + ulangi analisis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dokumentasi -->
+                <div class="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30 md:col-span-2">
+                    <h3 class="font-bold text-white mb-3">D. Dokumentasi yang Harus Ada</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-clipboard-list text-cyan-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Form inspeksi K3</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-file-medical text-red-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Form laporan kecelakaan</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-table text-green-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Matriks risiko</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-file-alt text-yellow-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Notulen rapat K3</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-certificate text-blue-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Bukti pelatihan</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded text-center">
+                            <i class="fas fa-archive text-purple-400 text-xl mb-2"></i>
+                            <p class="text-gray-300 text-sm">Arsip dokumentasi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABEL HIRARC LENGKAP -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">📊 TABEL HIRARC LENGKAP BERDASARKAN AREA</h2>
+            
+            <!-- Area: Ruang Kelas -->
+            <div class="mb-8">
+                <h3 class="font-bold text-white mb-4 text-lg bg-blue-500/20 p-3 rounded">A. Area: Ruang Kelas</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Hazard (Bahaya)</th>
+                                <th>Risiko</th>
+                                <th>L</th>
+                                <th>S</th>
+                                <th>Level Risiko</th>
+                                <th>Pengendalian Saat Ini</th>
+                                <th>Rekomendasi Pengendalian</th>
+                                <th>PIC</th>
+                                <th>Timeline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Kabel listrik berserakan</td>
+                                <td>Tersandung / kesetrum</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td><span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">6 (Tinggi)</span></td>
+                                <td>Kabel diikat tetapi tidak rapi</td>
+                                <td>Pasang ducting kabel, cable cover</td>
+                                <td>Safety Officer</td>
+                                <td>1 minggu</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Stop kontak overload</td>
+                                <td>Kebakaran</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td><span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">6 (Tinggi)</span></td>
+                                <td>Staf mengingatkan tutor</td>
+                                <td>Ganti stop kontak SNI, batasi adaptor</td>
+                                <td>Safety Officer</td>
+                                <td>2 minggu</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Ruang kelas terlalu padat</td>
+                                <td>Sulit evakuasi</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td><span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">6 (Tinggi)</span></td>
+                                <td>Kursi disusun teratur</td>
+                                <td>Batasi 1 kelas max 20 siswa</td>
+                                <td>Manajer Operasional</td>
+                                <td>1 bulan</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>AC/lampu rusak</td>
+                                <td>Korsleting</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td><span class="px-2 py-1 bg-yellow-500/30 text-yellow-300 rounded text-xs">4 (Sedang)</span></td>
+                                <td>Maintenance bulanan</td>
+                                <td>Inspeksi mingguan + checklist</td>
+                                <td>Admin + Teknisi</td>
+                                <td>Mingguan</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Debu berlebih</td>
+                                <td>Alergi / ISPA</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td><span class="px-2 py-1 bg-green-500/30 text-green-300 rounded text-xs">2 (Rendah)</span></td>
+                                <td>Dibersihkan tiap pagi</td>
+                                <td>Gunakan air purifier</td>
+                                <td>Petugas Kebersihan</td>
+                                <td>1 bulan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Area: Ruang Komputer / Lab -->
+            <div class="mb-8">
+                <h3 class="font-bold text-white mb-4 text-lg bg-purple-500/20 p-3 rounded">B. Area: Ruang Komputer / Lab</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 rounded">
+                        <h4 class="font-bold text-white mb-2">Perangkat overheating</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-300">Risiko: Kebakaran</span>
+                            <span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">L:2 S:3 = 6 (Tinggi)</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Pengendalian: Penggunaan wajar</p>
+                        <p class="text-gray-300 text-sm"><strong>Rekomendasi:</strong> Tambah exhaust, cek PSU</p>
+                        <div class="flex justify-between mt-3 text-xs text-gray-400">
+                            <span>PIC: Safety Officer</span>
+                            <span>Timeline: 2 minggu</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded">
+                        <h4 class="font-bold text-white mb-2">Kabel LAN/charger berserakan</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-300">Risiko: Tersandung</span>
+                            <span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">L:3 S:2 = 6 (Tinggi)</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Pengendalian: Kabel diikat</p>
+                        <p class="text-gray-300 text-sm"><strong>Rekomendasi:</strong> Pemasangan manajemen kabel</p>
+                        <div class="flex justify-between mt-3 text-xs text-gray-400">
+                            <span>PIC: Teknisi</span>
+                            <span>Timeline: 1 minggu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area Lainnya (Toilet & Kantin, Parkiran, Kantor, Gedung) -->
+            <div class="mb-8">
+                <h3 class="font-bold text-white mb-4 text-lg bg-emerald-500/20 p-3 rounded">Area Lainnya</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 rounded">
+                        <h4 class="font-bold text-white mb-2">Toilet & Kantin - Lantai licin</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-300">Risiko: Terpeleset</span>
+                            <span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">L:3 S:2 = 6 (Tinggi)</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Pengendalian: Tersedia rambu</p>
+                        <p class="text-gray-300 text-sm"><strong>Rekomendasi:</strong> Pasang anti-slip, pemeriksaan rutin</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded">
+                        <h4 class="font-bold text-white mb-2">Parkiran - Jalan licin</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-300">Risiko: Tergelincir</span>
+                            <span class="px-2 py-1 bg-red-500/30 text-red-300 rounded text-xs">L:3 S:2 = 6 (Tinggi)</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-2">Pengendalian: Ada kanopi sebagian</p>
+                        <p class="text-gray-300 text-sm"><strong>Rekomendasi:</strong> Tambah karpet anti slip</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skala Penilaian Risiko -->
+        <div class="dark-card">
+            <h2 class="text-2xl font-bold text-white mb-4">📈 SKALA PENILAIAN RISIKO</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                    <h3 class="font-bold text-white mb-3">Likelihood (L)</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">1</div>
+                            <div>
+                                <p class="font-bold text-white">Jarang terjadi</p>
+                                <p class="text-gray-400 text-sm">Kejadian sangat jarang, mungkin sekali dalam setahun</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold">2</div>
+                            <div>
+                                <p class="font-bold text-white">Kadang terjadi</p>
+                                <p class="text-gray-400 text-sm">Kejadian beberapa kali dalam setahun</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-bold">3</div>
+                            <div>
+                                <p class="font-bold text-white">Sering terjadi</p>
+                                <p class="text-gray-400 text-sm">Kejadian bulanan atau lebih sering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+                    <h3 class="font-bold text-white mb-3">Severity (S)</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">1</div>
+                            <div>
+                                <p class="font-bold text-white">Cedera ringan</p>
+                                <p class="text-gray-400 text-sm">P3K sederhana, bisa kembali bekerja</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold">2</div>
+                            <div>
+                                <p class="font-bold text-white">Cedera sedang</p>
+                                <p class="text-gray-400 text-sm">Perlu perawatan medis, cuti beberapa hari</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-bold">3</div>
+                            <div>
+                                <p class="font-bold text-white">Cedera berat / fatal</p>
+                                <p class="text-gray-400 text-sm">Cacat permanen, kematian, kebakaran besar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matriks Skor -->
+            <div class="mt-6 p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
+                <h3 class="font-bold text-white mb-3">Level Risiko = L × S</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center p-4 rounded-lg bg-green-500/20">
+                        <div class="text-2xl font-bold text-green-400">1–2</div>
+                        <h4 class="font-bold text-white mt-2">Rendah</h4>
+                        <p class="text-gray-300 text-sm mt-1">Cukup monitoring dan edukasi</p>
+                    </div>
+                    <div class="text-center p-4 rounded-lg bg-yellow-500/20">
+                        <div class="text-2xl font-bold text-yellow-400">3–4</div>
+                        <h4 class="font-bold text-white mt-2">Sedang</h4>
+                        <p class="text-gray-300 text-sm mt-1">Perlu pengendalian rutin</p>
+                    </div>
+                    <div class="text-center p-4 rounded-lg bg-red-500/20">
+                        <div class="text-2xl font-bold text-red-400">6–9</div>
+                        <h4 class="font-bold text-white mt-2">Tinggi</h4>
+                        <p class="text-gray-300 text-sm mt-1">Wajib tindakan segera</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
+        <div class="flex justify-center gap-4 flex-wrap mt-8">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition">
+                <i class="fas fa-arrow-up"></i>
+                <span>Kembali ke Atas</span>
+            </button>
+            <a href="dashboard.html" class="btn-back text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 transition">
+                <i class="fas fa-arrow-left"></i>
+                <span>Kembali ke Dashboard</span>
+            </a>
+            <a href="smk3.html" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 transition">
+                <i class="fas fa-shield-alt"></i>
+                <span>Sistem SMK3</span>
+            </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-8 pt-6 border-t border-white/10 text-center text-gray-400 text-sm">
+            <p>© 2023 Bimbel Brawijaya | Panduan Manajemen Risiko K3 v2.0 | Untuk Mahasiswa</p>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        const translations = {
+            id: {
+                'title': 'Manajemen Risiko K3', 'subtitle': 'Bimbel Brawijaya - Panduan Lengkap untuk Mahasiswa',
+                'intro-title': 'Pendahuluan',
+                'intro-p1': 'Manajemen Risiko K3 di Bimbel Brawijaya merupakan pendekatan sistematis untuk mengidentifikasi, menilai, dan mengendalikan risiko kesehatan dan keselamatan kerja dalam lingkungan belajar mengajar.',
+                'intro-p2': 'Sebagai lembaga bimbingan belajar dengan 4 cabang di Malang Raya dan melayani ratusan siswa setiap harinya, kami berkomitmen untuk menciptakan lingkungan belajar yang aman dan sehat bagi seluruh siswa, pengajar, dan staf.',
+                'hazard-title': 'Identifikasi Bahaya',
+                'hazard-intro': 'Di lingkungan bimbel, kami mengidentifikasi beberapa kategori bahaya potensial:',
+                'hazard-physical': 'Bahaya Fisik', 'physical-1': '• Kabel listrik berserakan', 'physical-2': '• AC rusak atau tidak terawat', 'physical-3': '• Lantai licin saat hujan', 'physical-4': '• Ruang kelas terlalu padat',
+                'hazard-fire': 'Bahaya Kebakaran', 'fire-1': '• Stop kontak overload', 'fire-2': '• Penggunaan charger murah', 'fire-3': '• Bahan mudah terbakar',
+                'hazard-ergonomic': 'Bahaya Ergonomi', 'ergonomic-1': '• Kursi tidak ergonomis', 'ergonomic-2': '• Posisi duduk salah', 'ergonomic-3': '• Penggunaan komputer lama',
+                'hazard-biological': 'Bahaya Biologis', 'biological-1': '• Penyebaran virus', 'biological-2': '• Kebersihan kurang', 'biological-3': '• Sirkulasi udara buruk',
+                'assessment-title': 'Penilaian Risiko',
+                'assessment-intro': 'Setiap bahaya dinilai berdasarkan tingkat kemungkinan dan keparahan dampaknya.',
+                'formula': 'Risiko = Kemungkinan × Keparahan',
+                'risk-low': '🟢 Risiko Rendah', 'risk-low-desc': 'Perlu monitoring berkala',
+                'risk-medium': '🟡 Risiko Sedang', 'risk-medium-desc': 'Perlu pengendalian rutin',
+                'risk-high': '🔴 Risiko Tinggi', 'risk-high-desc': 'Perlu tindakan segera',
+                'control-title': 'Pengendalian Risiko',
+                'control-intro': 'Hierarki pengendalian risiko dari yang paling efektif:',
+                'control-1': 'Eliminasi', 'control-1-desc': 'Menghilangkan bahaya sepenuhnya',
+                'control-2': 'Substitusi', 'control-2-desc': 'Mengganti dengan yang lebih aman',
+                'control-3': 'Kontrol Teknis', 'control-3-desc': 'Instalasi APAR, ventilasi, alarm',
+                'control-4': 'Kontrol Administratif', 'control-4-desc': 'SOP, pelatihan, rambu keselamatan',
+                'control-5': 'APD', 'control-5-desc': 'Masker, hand sanitizer, sarung tangan',
+                'impl-title': 'Implementasi di Bimbel Brawijaya',
+                'impl-intro': 'Program manajemen risiko K3 yang komprehensif:',
+                'impl-1': '✓ Inspeksi rutin fasilitas setiap minggu',
+                'impl-2': '✓ Pelatihan K3 untuk pengajar dan staf',
+                'impl-3': '✓ Penyediaan APAR di setiap lantai',
+                'impl-4': '✓ Protokol kebersihan dan sanitasi ketat',
+                'impl-5': '✓ Jalur evakuasi yang jelas',
+                'impl-6': '✓ Sistem pelaporan insiden',
+                'back-btn': 'Kembali ke Dashboard',
+                'smk3-btn': 'Sistem SMK3'
+            },
+            en: {
+                'title': 'K3 Risk Management', 'subtitle': 'Bimbel Brawijaya - Complete Guide for Students',
+                'intro-title': 'Introduction',
+                'intro-p1': 'K3 Risk Management at Bimbel Brawijaya is a systematic approach to identify, assess, and control occupational health and safety risks in the teaching and learning environment.',
+                'intro-p2': 'As a tutoring institution with 4 branches in Greater Malang serving hundreds of students daily, we are committed to creating a safe and healthy learning environment for all students, teachers, and staff.',
+                'hazard-title': 'Hazard Identification',
+                'hazard-intro': 'In the tutoring environment, we identify several categories of potential hazards:',
+                'hazard-physical': 'Physical Hazards', 'physical-1': '• Scattered electrical cables', 'physical-2': '• Damaged or poorly maintained AC', 'physical-3': '• Slippery floors during rain', 'physical-4': '• Overcrowded classrooms',
+                'hazard-fire': 'Fire Hazards', 'fire-1': '• Overloaded outlets', 'fire-2': '• Use of cheap chargers', 'fire-3': '• Flammable materials',
+                'hazard-ergonomic': 'Ergonomic Hazards', 'ergonomic-1': '• Non-ergonomic chairs', 'ergonomic-2': '• Incorrect sitting posture', 'ergonomic-3': '• Prolonged computer use',
+                'hazard-biological': 'Biological Hazards', 'biological-1': '• Virus spread', 'biological-2': '• Poor cleanliness', 'biological-3': '• Poor air circulation',
+                'assessment-title': 'Risk Assessment',
+                'assessment-intro': 'Each hazard is assessed based on its likelihood and severity of impact.',
+                'formula': 'Risk = Likelihood × Severity',
+                'risk-low': '🟢 Low Risk', 'risk-low-desc': 'Requires periodic monitoring',
+                'risk-medium': '🟡 Medium Risk', 'risk-medium-desc': 'Requires routine control',
+                'risk-high': '🔴 High Risk', 'risk-high-desc': 'Requires immediate action',
+                'control-title': 'Risk Control',
+                'control-intro': 'Hierarchy of risk control from most effective:',
+                'control-1': 'Elimination', 'control-1-desc': 'Completely remove the hazard',
+                'control-2': 'Substitution', 'control-2-desc': 'Replace with safer alternatives',
+                'control-3': 'Engineering Controls', 'control-3-desc': 'Fire extinguishers, ventilation, alarms',
+                'control-4': 'Administrative Controls', 'control-4-desc': 'SOPs, training, safety signs',
+                'control-5': 'PPE', 'control-5-desc': 'Masks, hand sanitizer, gloves',
+                'impl-title': 'Implementation at Bimbel Brawijaya',
+                'impl-intro': 'Comprehensive K3 risk management program:',
+                'impl-1': '✓ Routine facility inspections every week',
+                'impl-2': '✓ K3 training for teachers and staff',
+                'impl-3': '✓ Fire extinguishers on every floor',
+                'impl-4': '✓ Strict cleanliness and sanitation protocols',
+                'impl-5': '✓ Clear evacuation routes',
+                'impl-6': '✓ Incident reporting system',
+                'back-btn': 'Back to Dashboard',
+                'smk3-btn': 'SMK3 System'
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'id';
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLang);
+            setTheme(currentTheme);
+            setupScrollTop();
+        });
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            document.getElementById('langDisplay').textContent = lang.toUpperCase();
+        }
+
+        function toggleLanguage() {
+            setLanguage(currentLang === 'id' ? 'en' : 'id');
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            const btn = document.getElementById('themeToggle');
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                btn.innerHTML = '<i class="fas fa-sun text-gray-400"></i>';
+            } else {
+                document.body.classList.remove('light-mode');
+                btn.innerHTML = '<i class="fas fa-moon text-gray-400"></i>';
+            }
+        }
+
+        function toggleTheme() {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        function setupScrollTop() {
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.style.opacity = '1';
+                    scrollTopBtn.style.visibility = 'visible';
+                } else {
+                    scrollTopBtn.style.opacity = '0';
+                    scrollTopBtn.style.visibility = 'hidden';
+                }
+            });
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+        // Add interactivity to table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            });
+            row.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+            });
+        });
+    </script>
+</body>
+</html>
